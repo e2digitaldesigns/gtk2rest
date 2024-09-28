@@ -3,10 +3,10 @@ import { Server as SocketServer } from "socket.io";
 
 let io: SocketServer | null = null;
 
-export const initializeSocket = (server: HttpServer): SocketServer => {
+export const initializeSocket = (server: HttpServer) => {
   if (io) {
     console.log("Socket.io is already initialized.");
-    throw new Error("Socket.io is already initialized.");
+    return;
   }
 
   try {
@@ -15,8 +15,6 @@ export const initializeSocket = (server: HttpServer): SocketServer => {
     });
 
     console.log("Socket.io initialized successfully");
-
-    return io;
   } catch (error) {
     console.error("Socket initialization failed:", error);
     process.exit(1);

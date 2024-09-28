@@ -23,10 +23,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.get("/socket", async (req: Request, res: Response) => {
-  res.send("GTK REST 3s Service");
   const io = getSocketServer();
-
   io.emit("customEvent", "Event emitted successfully");
-
   res.send("Event emitted successfully");
 });
