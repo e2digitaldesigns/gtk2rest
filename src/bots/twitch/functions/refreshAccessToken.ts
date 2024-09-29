@@ -25,6 +25,8 @@ export async function refreshAccessToken(
       return "";
     }
 
+    console.log(28);
+
     await GtkTwitchBotModel.findOneAndUpdate(
       {
         twitchUserName: botName

@@ -1,26 +1,24 @@
-import { Client as TMIClient } from "tmi.js";
+import { Client as TMIClient } from "@twurple/auth-tmi";
 import * as botFunctions from "./functions";
 
 let twitchClient: TMIClient | null = null;
+let isReconnecting = false;
+
+const { StaticAuthProvider } = require("@twurple/auth");
 
 export const twitch = async () => {
-  if (twitchClient && twitchClient.readyState() === "OPEN") {
-    console.log("Twitch bot is already connected.");
-    return;
-  }
-
   try {
     twitchClient = new TMIClient({
+      authProvider: new StaticAuthProvider(
+        process.env.TWITCH_CLIENT_ID,
+        await botFunctions.refreshAccessToken()
+      ),
       channels: [...(await botFunctions.getTwitchChannels())],
       connection: {
         secure: true,
         reconnect: true,
         maxReconnectAttempts: Infinity,
         reconnectInterval: 2000
-      },
-      identity: {
-        username: "iconicbotty",
-        password: await botFunctions.refreshAccessToken("iconicbotty")
       },
       options: { debug: true }
     });
@@ -33,13 +31,27 @@ export const twitch = async () => {
 };
 
 export const twitchClientReconnect = async () => {
-  if (twitchClient) {
+  if (twitchClient && !isReconnecting) {
+    isReconnecting = true;
+
+    console.log(32, twitchClient.readyState());
+    console.log(33, "Attempting to reconnect to Twitch...");
+
     try {
-      twitchClient.readyState() === "OPEN" && (await twitchClient.disconnect());
-      console.log("Reconnecting to Twitch...");
+      if (twitchClient.readyState() === "OPEN") {
+        console.log(37, "Twitch bot is already connected.");
+        await twitchClient.disconnect();
+        isReconnecting = false;
+        return;
+      }
+
+      // await botFunctions.getValidAccessTokenMain();
+      console.log(43, "Reconnecting to Twitch...");
       await twitchClient.connect();
     } catch (error) {
       console.error("Reconnection failed:", error);
+    } finally {
+      isReconnecting = false;
     }
   }
 };
@@ -64,7 +76,7 @@ export const twitchClientListener = () => {
     }
 
     if (message === "!ping") {
-      twitchClient?.say(channel, "Pong!");
+      twitchClient?.say(channel, "Pongy!");
     }
   });
 
@@ -73,7 +85,7 @@ export const twitchClientListener = () => {
   });
 
   twitchClient?.on("disconnected", async (reason: string) => {
-    console.log(`Disconnected: ${reason}`);
+    console.log(76, `Disconnected: ${reason}`);
 
     setTimeout(() => {
       twitchClientReconnect();
