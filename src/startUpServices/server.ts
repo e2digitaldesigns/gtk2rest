@@ -1,9 +1,14 @@
 import { Server } from "http";
-import express, { Express, NextFunction, Request, Response } from "express";
-import { getSocketServer } from "./socket";
+import express, { Express, Request, Response } from "express";
+import cors from "cors";
+
+import { routing } from "../routes";
 
 const app: Express = express();
-app.use(require("cors")());
+
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 export const initializeServer = () => {
   try {
@@ -18,12 +23,8 @@ export const initializeServer = () => {
   }
 };
 
+routing(app);
+
 app.get("/", async (req: Request, res: Response) => {
   res.send("GTK REST 3s Service");
-});
-
-app.get("/socket", async (req: Request, res: Response) => {
-  const io = getSocketServer();
-  io.emit("customEvent", "Event emitted successfully");
-  res.send("Event emitted successfully");
 });

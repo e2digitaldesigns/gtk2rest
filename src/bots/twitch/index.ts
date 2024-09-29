@@ -57,7 +57,6 @@ export const twitchClientListener = () => {
 
   twitchClient?.on("message", (channel: string, tags: any, message: string, self: boolean) => {
     if (self) return;
-    console.log(`${tags["display-name"]}: ${message}`);
 
     if (message === "!disco" && tags.username === "icon33") {
       twitchClient?.say(channel, "Command Accepted!");
