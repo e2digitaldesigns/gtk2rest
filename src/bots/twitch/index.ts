@@ -1,101 +1,69 @@
-import { Client as TMIClient } from "@twurple/auth-tmi";
+import { RefreshingAuthProvider } from "@twurple/auth";
+import { Bot, MessageEvent, createBotCommand } from "@twurple/easy-bot";
 import * as botFunctions from "./functions";
 
-let twitchClient: TMIClient | null = null;
-let isReconnecting = false;
+const clientId = process.env.TWITCH_CLIENT_ID as string;
+const clientSecret = process.env.TWITCH_CLIENT_SECRET as string;
 
-const { StaticAuthProvider } = require("@twurple/auth");
+let twitchBotClient: Bot | undefined;
 
-export const twitch = async () => {
-  try {
-    twitchClient = new TMIClient({
-      authProvider: new StaticAuthProvider(
-        process.env.TWITCH_CLIENT_ID,
-        await botFunctions.refreshAccessToken()
-      ),
-      channels: [...(await botFunctions.getTwitchChannels())],
-      connection: {
-        secure: true,
-        reconnect: true,
-        maxReconnectAttempts: Infinity,
-        reconnectInterval: 2000
-      },
-      options: { debug: true }
-    });
+const authProvider = new RefreshingAuthProvider({
+  clientId,
+  clientSecret
+});
 
-    twitchClientListener();
-    return twitchClient;
-  } catch (error) {
-    console.error("Twitch bot initialization failed:", error);
+authProvider.onRefresh(async (userId, newTokenData) =>
+  console.log(`Refreshed token for user ${userId}: ${newTokenData.accessToken}`)
+);
+
+export async function twitchBot() {
+  const tokenData = await botFunctions.refreshAccessToken();
+
+  if (!tokenData) {
+    throw new Error("Failed to get a valid access token.");
   }
-};
 
-export const twitchClientReconnect = async () => {
-  if (twitchClient && !isReconnecting) {
-    isReconnecting = true;
+  await authProvider.addUserForToken(tokenData, ["chat"]);
 
-    console.log(32, twitchClient.readyState());
-    console.log(33, "Attempting to reconnect to Twitch...");
+  twitchBotClient = new Bot({
+    authProvider,
+    channels: await botFunctions.getTwitchChannels(),
+    commands: [
+      createBotCommand("dice", (params, { reply }) => {
+        const diceRoll = Math.floor(Math.random() * 6) + 1;
+        reply(`You rolled a ${diceRoll}`);
+      })
+    ]
+  });
+
+  twitchBotClient.onConnect(() => console.log("Bot connected to Twitch."));
+
+  twitchBotClient.onDisconnect(async error => {
+    console.error("Bot disconnected", error);
+
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    console.log("Attempting to reconnect...");
 
     try {
-      if (twitchClient.readyState() === "OPEN") {
-        console.log(37, "Twitch bot is already connected.");
-        await twitchClient.disconnect();
-        isReconnecting = false;
-        return;
-      }
-
-      // await botFunctions.getValidAccessTokenMain();
-      console.log(43, "Reconnecting to Twitch...");
-      await twitchClient.connect();
-    } catch (error) {
-      console.error("Reconnection failed:", error);
-    } finally {
-      isReconnecting = false;
-    }
-  }
-};
-
-const disconnectTwitchClient = async () => {
-  if (twitchClient) {
-    await twitchClient.disconnect();
-  }
-};
-
-export const twitchClientListener = () => {
-  twitchClient?.connect().catch(err => {
-    console.error("Failed to connect to Twitch:", err);
-  });
-
-  twitchClient?.on("message", (channel: string, tags: any, message: string, self: boolean) => {
-    if (self) return;
-
-    if (message === "!disco" && tags.username === "icon33") {
-      twitchClient?.say(channel, "Command Accepted!");
-      disconnectTwitchClient();
-    }
-
-    if (message === "!ping") {
-      twitchClient?.say(channel, "Pongy!");
+      twitchBotClient = await twitchBot();
+      console.log("Reconnected to Twitch.");
+    } catch (err) {
+      console.error("Failed to reconnect:", err);
     }
   });
 
-  twitchClient?.on("connected", (address: string, port: number) => {
-    console.log(`Connected to ${address}:${port}`);
+  twitchBotClient.onMessage(async (arg: MessageEvent) => {
+    console.log(arg.userDisplayName, "said:", arg.text);
+    const user = await arg.getUser();
+    console.log(user.profilePictureUrl);
   });
 
-  twitchClient?.on("disconnected", async (reason: string) => {
-    console.log(76, `Disconnected: ${reason}`);
+  return twitchBotClient;
+}
 
-    setTimeout(() => {
-      twitchClientReconnect();
-    }, 5000);
-  });
-};
-
-export const getTwitchClient = (): TMIClient => {
-  if (!twitchClient) {
-    throw new Error("Twitch bot has not been initialized yet.");
+export const sendTwitchChatMessage = (channel: string, message: string) => {
+  if (!twitchBotClient) {
+    throw new Error("The TwitchBot has not been initialized yet.");
   }
-  return twitchClient;
+  twitchBotClient.say(channel, message);
 };

@@ -8,6 +8,7 @@ export interface IgtkBot {
   expiresIn: number;
   twitchUserName: string;
   twitchUserId: string;
+  obtainmentTimestamp: number;
 }
 
 const gtkTwitchBotSchema = new Schema<IgtkBot>({
@@ -17,7 +18,8 @@ const gtkTwitchBotSchema = new Schema<IgtkBot>({
   expirationTime: { type: Number, required: true, default: 0 },
   expiresIn: { type: Number, required: true, default: 0 },
   twitchUserName: { type: String, required: true },
-  twitchUserId: { type: String, required: true }
+  twitchUserId: { type: String, required: true },
+  obtainmentTimestamp: { type: Number, required: true, default: 0 }
 });
 
 export const GtkTwitchBotModel = model("gtkbots", gtkTwitchBotSchema);

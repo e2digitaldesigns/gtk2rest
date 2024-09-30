@@ -1,13 +1,10 @@
 import axios from "axios";
 import { GtkTwitchBotModel } from "../../../models/gtkBot.model";
 
-export async function refreshAccessToken(
-  botName: string,
-  refreshToken: string = ""
-): Promise<string> {
+export async function refreshAccessToken(refreshToken: string = ""): Promise<any> {
   try {
     if (!refreshToken) {
-      const botData = await GtkTwitchBotModel.findOne({ twitchUserName: botName }).select({
+      const botData = await GtkTwitchBotModel.findOne().select({
         refreshToken: 1
       });
 
@@ -25,25 +22,27 @@ export async function refreshAccessToken(
       return "";
     }
 
-    console.log(28);
-
     await GtkTwitchBotModel.findOneAndUpdate(
-      {
-        twitchUserName: botName
-      },
+      {},
       {
         $set: {
           refreshToken: response.data.refresh_token,
           accessToken: response.data.access_token,
           expiresIn: response.data.expires_in,
-          expirationTime: Date.now() + response.data.expires_in * 1000
+          expirationTime: Date.now() + response.data.expires_in * 1000,
+          obtainmentTimestamp: Date.now()
         }
       },
       { new: true }
     );
 
-    return response.data.access_token;
+    return {
+      refreshToken: response.data.refresh_token,
+      expiresIn: response.data.expires_in,
+      obtainmentTimestamp: response.data.obtainmentTimestamp,
+      accessToken: response.data.access_token
+    };
   } catch (error) {
-    return "";
+    return undefined;
   }
 }

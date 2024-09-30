@@ -2,8 +2,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-import { twitch } from "./bots/twitch";
-import * as twitchBotFunctions from "./bots/twitch/functions";
+import { twitchBot } from "./bots/twitch";
 import startUpServices from "./startUpServices";
 
 (async () => {
@@ -12,14 +11,7 @@ import startUpServices from "./startUpServices";
     await startUpServices.initializeMongo();
     await startUpServices.initializeSocket(server);
 
-    // Get a valid access token initially
-    // await twitchBotFunctions.refreshAccessToken();
-
-    // Initialize the Twitch bot
-    await twitch();
-
-    // Set an interval to refresh the access token every 4 minutes
-    twitchBotFunctions.autoRefreshAccessToken();
+    await twitchBot();
   } catch (error) {
     console.error("Error during startup:", error);
   }

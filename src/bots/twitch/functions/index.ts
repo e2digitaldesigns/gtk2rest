@@ -1,2 +1,2 @@
 export * from "./getTwitchChannels";
-export * from "./twitchTokenManager";
+export * from "./refreshAccessToken";
