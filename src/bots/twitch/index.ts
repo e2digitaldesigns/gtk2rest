@@ -1,6 +1,7 @@
 import { RefreshingAuthProvider } from "@twurple/auth";
-import { Bot, MessageEvent, createBotCommand } from "@twurple/easy-bot";
+import { Bot } from "@twurple/easy-bot";
 import * as botFunctions from "./functions";
+import { messageHandler } from "./messageHandler";
 
 const clientId = process.env.TWITCH_CLIENT_ID as string;
 const clientSecret = process.env.TWITCH_CLIENT_SECRET as string;
@@ -50,6 +51,7 @@ const twitchBotClientListener = async () => {
 
   disconnectListener = twitchBotClient.onDisconnect(async error => {
     console.error("Bot disconnected", error);
+    console.log("Waiting 5 seconds before attempting to reconnect...");
 
     await new Promise(resolve => setTimeout(resolve, 5000));
     console.log("Attempting to reconnect...");
@@ -62,12 +64,7 @@ const twitchBotClientListener = async () => {
     }
   });
 
-  messageListener = twitchBotClient.onMessage(async (arg: MessageEvent) => {
-    console.log(arg.userDisplayName, "said:", arg.text);
-    if (arg.text === "!test") {
-      twitchBotClient?.say(arg.broadcasterName, "Testing 123");
-    }
-  });
+  messageListener = twitchBotClient.onMessage(messageHandler);
 };
 
 export const sendTwitchChatMessage = (channel: string, message: string) => {
