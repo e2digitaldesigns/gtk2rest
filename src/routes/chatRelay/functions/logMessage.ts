@@ -4,6 +4,7 @@ const ObjectId = mongoose.Types.ObjectId;
 import { ChatLogModel } from "../../../models/chatLog.model";
 import { generateId } from "../../../globalUtils";
 import { sendChatData } from "./sendChatData";
+import { sendChatRankData } from "../../chatRank/functions";
 
 type TwitchMessage = {
   channel: string;
@@ -38,6 +39,7 @@ export const logChatMessage = async (userId: string, messageData: TwitchMessage)
     }
 
     sendChatData(userId);
+    sendChatRankData(userId);
 
     return {
       resultStatus: {

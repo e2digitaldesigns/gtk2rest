@@ -42,7 +42,5 @@ export async function messageHandler(message: MessageEvent) {
     platform: "twitch"
   });
 
-  // Chat Ranks
-
   // Chat commands
 }
