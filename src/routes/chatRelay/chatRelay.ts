@@ -20,14 +20,13 @@ router.get("/events/:userId", async (req: Request, res: CustomResponse) => {
   res.flushHeaders();
 
   await clientState.addClient({ gtkUserId: req.params.userId, resId: String(res.id), res });
-  await clientState.sendChatData(req.params.userId, res.id);
+  await chatRelayFunctions.sendChatData(req.params.userId, res.id);
 
   req.on("close", () => {
     clientState.removeClient(String(res.id));
   });
 });
 
-// for testing purposes only
 router.post("/log/:userId", async (req, res) => {
   const data = await chatRelayFunctions.logChatMessage(req.params.userId, req.body);
   res.status(data.resultStatus.responseCode).send(data);

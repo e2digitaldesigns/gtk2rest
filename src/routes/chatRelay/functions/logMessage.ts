@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 const ObjectId = mongoose.Types.ObjectId;
 
 import { ChatLogModel } from "../../../models/chatLog.model";
-import { sendChatData } from "../clientState";
 import { generateId } from "../../../globalUtils";
+import { sendChatData } from "./sendChatData";
 
 type TwitchMessage = {
   channel: string;

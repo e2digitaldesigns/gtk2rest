@@ -13,6 +13,8 @@ export async function messageHandler(message: MessageEvent) {
   const chatterUserId = message.userId;
 
   // Ignore messages from ignored users
+  const ignoreList = await botFunctions.getIgnoreList(streamerChannel);
+  if (ignoreList.includes(chatterUserName.toLowerCase())) return;
 
   // Get gtk user id from db
   const gtkUserId = await botFunctions.getGTKUserId(streamerChannel);

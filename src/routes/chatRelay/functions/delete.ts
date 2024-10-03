@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const ObjectId = mongoose.Types.ObjectId;
 
 import { ChatLogModel } from "../../../models/chatLog.model";
-import { sendChatData } from "../clientState";
+import { sendChatData } from "./sendChatData";
 
 export const deleteChatMessage = async (userId: string, messageId: string) => {
   try {
