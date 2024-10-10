@@ -7,6 +7,7 @@ export const routing = (app: Express) => {
   app.use(express.json());
 
   app.use(`${prefix}application-data`, routes.applicationData);
+  app.use(`${prefix}auth`, routes.auth);
   app.use(`${prefix}chat-relay`, routes.chatRelay);
   app.use(`${prefix}chat-rank`, routes.chatRank);
 
