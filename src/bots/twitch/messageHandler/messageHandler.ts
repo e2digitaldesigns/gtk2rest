@@ -2,6 +2,7 @@ import { MessageEvent } from "@twurple/easy-bot";
 import * as botFunctions from "../functions";
 import { logChatMessage } from "../../../routes/chatRelay/functions";
 import { twitchChatEmoteParser } from "./functions";
+import { chatCommandParser } from "./functions/chatCommandParser";
 
 export async function messageHandler(message: MessageEvent) {
   if (message.text === "!msg") {
@@ -30,6 +31,8 @@ export async function messageHandler(message: MessageEvent) {
     chatterUserId
   );
 
+  const isStreamer = chatterUserName.toLowerCase() === streamerChannel.toLowerCase();
+
   // Log message to db
   logChatMessage(gtkUserId, {
     channel: streamerChannel.toLowerCase(),
@@ -43,4 +46,7 @@ export async function messageHandler(message: MessageEvent) {
   });
 
   // Chat commands
+  if (message.text.startsWith("!")) {
+    chatCommandParser(streamerChannel, gtkUserId, isFollowing, isStreamer, message);
+  }
 }

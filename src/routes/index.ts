@@ -6,6 +6,7 @@ export const routing = (app: Express) => {
   const prefix = "/api/v1/";
   app.use(express.json());
 
+  app.use(`${prefix}application-data`, routes.applicationData);
   app.use(`${prefix}chat-relay`, routes.chatRelay);
   app.use(`${prefix}chat-rank`, routes.chatRank);
 
