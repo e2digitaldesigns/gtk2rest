@@ -1,6 +1,7 @@
 import { IEpisodeTopic } from "../../../models/episodes.model";
 import mongoose from "mongoose";
 import { EpisodeModel } from "../../../models/episodes.model";
+import { sortEpisodeTopics, topicContentParser } from "../../_utils";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const reorderEpisodeTopics = async (
@@ -9,16 +10,23 @@ export const reorderEpisodeTopics = async (
   userId: string
 ) => {
   try {
-    for (let i = 0; i < topics.length; i++) {
-      await EpisodeModel.updateOne(
+    const updatePromises = topics.map(topic => {
+      return EpisodeModel.updateOne(
         {
           _id: new ObjectId(episodeId),
           userId: new ObjectId(userId),
-          "topics._id": new ObjectId(topics[i]._id)
+          "topics._id": new ObjectId(topic._id)
         },
-        { $set: { "topics.$.order": topics[i].order } }
+        { $set: { "topics.$.order": topic.order } }
       );
-    }
+    });
+
+    await Promise.all(updatePromises);
+
+    const updatedEpisode = await EpisodeModel.findOne({
+      _id: new ObjectId(episodeId),
+      userId: new ObjectId(userId)
+    }).lean();
 
     return {
       resultStatus: {
@@ -27,7 +35,11 @@ export const reorderEpisodeTopics = async (
         responseCode: 200,
         resultMessage: "Your request was successful."
       },
-      result: true
+      result: {
+        topics: updatedEpisode?.topics
+          ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
+          : []
+      }
     };
   } catch (error) {
     return {

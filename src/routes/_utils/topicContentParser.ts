@@ -1,9 +1,11 @@
+import _cloneDeep from "lodash/cloneDeep";
+
 const imageExtenstions = ["jpg", "jpeg", "png", "gif", "svg", "webp"];
 const videoExtenstions = ["mp4", "webm", "ogg"];
 
 export const topicContentParser = (topics: any) => {
   const newTopics = topics?.map((topic: any) => {
-    const newTopic = { ...topic };
+    const newTopic = _cloneDeep(topic);
 
     newTopic.img = topic.img ? process.env.S3_CLOUD_IMAGES + topic.img : "";
 

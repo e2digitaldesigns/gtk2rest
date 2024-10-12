@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { topicContentParser } from "../../_utils";
+import { sortEpisodeTopics, topicContentParser } from "../../_utils";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const getEpisodeTopics = async (episodeId: string, userId: string) => {
@@ -31,7 +31,7 @@ export const getEpisodeTopics = async (episodeId: string, userId: string) => {
     ]);
 
     const theTopics = result?.[0]?.topics
-      ? _sortBy(topicContentParser(result[0].topics), "order")
+      ? sortEpisodeTopics(topicContentParser(result[0].topics))
       : [];
 
     return {

@@ -27,7 +27,11 @@ export const episodeTopicYoutube = async (episodeId: string, topicId: string, vi
       },
       {
         $set: {
-          "topics.$.video": fileName
+          "topics.$.video": fileName,
+          "topics.$.content": {
+            file: fileName,
+            type: "video"
+          }
         }
       },
       {

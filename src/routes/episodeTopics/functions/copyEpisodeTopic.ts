@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
+import { sortEpisodeTopics, topicContentParser } from "../../_utils";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const copyEpisodeTopics = async (episodeId: string, topicId: string, userId: string) => {
@@ -39,7 +40,7 @@ export const copyEpisodeTopics = async (episodeId: string, topicId: string, user
       isChild: originalTopic.isChild,
       isParent: false,
       name: originalTopic.name,
-      order: episode[0].totalTopics + 1,
+      order: 999,
       parentId: originalTopic.parentId,
       timer: originalTopic.timer,
       articles: originalTopic.articles,
@@ -61,9 +62,9 @@ export const copyEpisodeTopics = async (episodeId: string, topicId: string, user
       },
       {
         returnDocument: "after",
-        projection: { topics: { $slice: -1 } }
+        projection: { topics: 1 }
       }
-    );
+    ).lean();
 
     if (!result) {
       throw new Error("Failed to copy topic");
@@ -76,7 +77,10 @@ export const copyEpisodeTopics = async (episodeId: string, topicId: string, user
         responseCode: 200,
         resultMessage: "Your request was successful."
       },
-      result: result.topics[0]
+      result: {
+        activeIndex: result.topics.length - 1,
+        topics: sortEpisodeTopics(topicContentParser(result.topics))
+      }
     };
   } catch (error) {
     return {

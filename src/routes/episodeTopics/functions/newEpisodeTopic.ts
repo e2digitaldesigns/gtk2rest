@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, IEpisode } from "../../../models/episodes.model";
+import { sortEpisodeTopics, topicContentParser } from "../../_utils";
 const ObjectId = mongoose.Types.ObjectId;
 
-export const newEpisodeTopic = async (episodeId: string, topicId: string, userId: string) => {
+export const newEpisodeTopic = async (episodeId: string, userId: string) => {
   try {
     const topicId = new ObjectId();
 
@@ -25,7 +26,7 @@ export const newEpisodeTopic = async (episodeId: string, topicId: string, userId
             _id: topicId,
             desc: "Now, do it now!",
             name: "Change my name",
-            order: episode?.topics?.length ? episode.topics.length + 1 : 0
+            order: (episode ? _sortBy(episode.topics, "order").reverse()[0].order : 0) + 1
           }
         }
       },
@@ -39,6 +40,11 @@ export const newEpisodeTopic = async (episodeId: string, topicId: string, userId
       throw new Error("Failed to copy topic");
     }
 
+    const updatedEpisode = await EpisodeModel.findOne({
+      _id: new ObjectId(episodeId),
+      userId: new ObjectId(userId)
+    }).lean();
+
     return {
       resultStatus: {
         success: true,
@@ -46,7 +52,12 @@ export const newEpisodeTopic = async (episodeId: string, topicId: string, userId
         responseCode: 200,
         resultMessage: "Your request was successful."
       },
-      result: result.topics[0]
+      result: {
+        activeIndex: updatedEpisode?.topics.findIndex(f => String(f._id) === String(topicId)) || 0,
+        topics: updatedEpisode?.topics
+          ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
+          : []
+      }
     };
   } catch (error) {
     return {

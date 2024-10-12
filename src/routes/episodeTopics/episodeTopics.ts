@@ -11,11 +11,7 @@ router.get("/:episodeId", async (req: Request, res: Response) => {
 });
 
 router.post("/:episodeId", async (req: Request, res: Response) => {
-  const data = await epTopicFunctions.newEpisodeTopic(
-    req.params.episodeId,
-    req.body.topicId,
-    res.locals.userId
-  );
+  const data = await epTopicFunctions.newEpisodeTopic(req.params.episodeId, res.locals.userId);
   res.status(data.resultStatus.responseCode).send(data);
 });
 

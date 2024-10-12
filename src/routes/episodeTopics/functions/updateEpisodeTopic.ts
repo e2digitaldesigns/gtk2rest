@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, IEpisodeTopic } from "../../../models/episodes.model";
+import { sortEpisodeTopics, topicContentParser } from "../../_utils";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const updateEpisodeTopics = async (
@@ -62,6 +63,11 @@ export const updateEpisodeTopics = async (
     );
   }
 
+  const updatedEpisode = await EpisodeModel.findOne({
+    _id: new ObjectId(episodeId),
+    userId: new ObjectId(userId)
+  }).lean();
+
   try {
     return {
       resultStatus: {
@@ -70,7 +76,12 @@ export const updateEpisodeTopics = async (
         responseCode: 200,
         resultMessage: "Your request was successful."
       },
-      result: true
+      result: {
+        activeIndex: updatedEpisode?.topics.findIndex(f => String(f._id) === String(_id)) || 0,
+        topics: updatedEpisode?.topics
+          ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
+          : []
+      }
     };
   } catch (error) {
     return {
