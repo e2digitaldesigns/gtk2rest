@@ -5,7 +5,11 @@ interface IntDecode {
   _id: string;
 }
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+interface Locals {
+  userId: string;
+}
+
+export const verifyToken = (req: Request, res: Response<Locals>, next: NextFunction) => {
   try {
     if (req.headers.authorization) {
       const bearerToken = req.headers.authorization.split(" ")[1];

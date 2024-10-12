@@ -11,6 +11,7 @@ export const routing = (app: Express) => {
   app.use(`${prefix}chat-relay`, routes.chatRelay);
   app.use(`${prefix}chat-rank`, routes.chatRank);
   app.use(`${prefix}episodes`, routes.episodes);
+  app.use(`${prefix}episode-segments`, routes.episodeSegments);
   app.use(`${prefix}episode-topics`, routes.episodeTopics);
   app.use(`${prefix}episode-topics-upload`, routes.episodeTopicsUpload);
 

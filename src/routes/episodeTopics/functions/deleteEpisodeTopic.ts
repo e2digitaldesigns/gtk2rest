@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
 import { s3Functions } from "../../../utils";
-import { sortEpisodeTopics, topicContentParser } from "../../_utils";
+import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const deleteEpisodeTopic = async (episodeId: string, topicId: string, userId: string) => {

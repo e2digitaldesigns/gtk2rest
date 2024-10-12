@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { sortEpisodeTopics, topicContentParser } from "../../_utils";
+import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const getEpisodeTopics = async (episodeId: string, userId: string) => {

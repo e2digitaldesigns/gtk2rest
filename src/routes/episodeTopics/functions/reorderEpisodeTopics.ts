@@ -1,7 +1,7 @@
 import { IEpisodeTopic } from "../../../models/episodes.model";
 import mongoose from "mongoose";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { sortEpisodeTopics, topicContentParser } from "../../_utils";
+import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const reorderEpisodeTopics = async (
