@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
 import { EpisodeModel, IEpisode } from "../../../models/episodes.model";
 import { ITemplate } from "../../../models/templates.model";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../_routeUtils";
 
 interface IEpisodeResult extends IEpisode {
   template: ITemplate[];
@@ -25,13 +24,13 @@ export const episodePagination = async (
 ) => {
   const documentsPerPage = 10;
   const skip = (Number(page) - 1) * documentsPerPage;
-  const searchTemplateId = templateId ? new ObjectId(templateId) : "";
+  const searchTemplateId = templateId ? mongoObjectId(templateId) : "";
   const episodeArray: EpisodeList[] = [];
 
   let pipeline: any[] = [
     {
       $match: {
-        userId: new ObjectId(userId)
+        userId: mongoObjectId(userId)
       }
     },
     {

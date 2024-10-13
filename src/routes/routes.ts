@@ -6,3 +6,4 @@ export * from "./episodes/episodes";
 export * from "./episodeTopics/episodeTopics";
 export * from "./episodeTopicsUpload/episodeTopicsUpload";
 export * from "./episodeSegments/episodeSegments";
+export * from "./socialNetworks/socialNetworks";

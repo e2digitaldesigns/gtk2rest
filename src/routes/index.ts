@@ -14,6 +14,7 @@ export const routing = (app: Express) => {
   app.use(`${prefix}episode-segments`, routes.episodeSegments);
   app.use(`${prefix}episode-topics`, routes.episodeTopics);
   app.use(`${prefix}episode-topics-upload`, routes.episodeTopicsUpload);
+  app.use(`${prefix}socials`, routes.socialNetworks);
 
   app.get("/", (req, res) => {
     sendTwitchChatMessage("icon33", "Hello World!");

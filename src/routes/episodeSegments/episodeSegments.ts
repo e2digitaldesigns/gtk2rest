@@ -46,4 +46,67 @@ router.post("/hosts/:episodeId", async (req: Request, res: Response) => {
   res.status(data.resultStatus.responseCode).send(data);
 });
 
+// EPISODE NEWS
+router.get("/news/:episodeId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.fetchEpisodeNews(
+    req.params.episodeId,
+    res.locals.userId
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.post("/news/:episodeId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.createEpisodeNews(
+    req.params.episodeId,
+    res.locals.userId,
+    req.body
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.put("/news/:episodeId/", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.updateEpisodeNews(
+    req.params.episodeId,
+    res.locals.userId,
+    req.body
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.delete("/news/:episodeId/:tickerId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.deleteEpisodeNews(
+    req.params.episodeId,
+    req.params.tickerId,
+    res.locals.userId
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.patch("/news/:episodeId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.reorderEpisodeNews(
+    req.params.episodeId,
+    res.locals.userId,
+    req.body.news
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+// EPISODE SOCIALS
+router.get("/socials/:episodeId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.fetchEpisodeSocials(
+    req.params.episodeId,
+    res.locals.userId
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.put("/socials/:episodeId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.updateEpisodeSocials(
+    req.params.episodeId,
+    res.locals.userId,
+    req.body.episodeSocials
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
 export const episodeSegments = router;
