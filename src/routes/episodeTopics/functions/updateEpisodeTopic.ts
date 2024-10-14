@@ -66,6 +66,12 @@ export const updateEpisodeTopics = async (
     userId: mongoObjectId(userId)
   }).lean();
 
+  const topics = updatedEpisode?.topics
+    ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
+    : [];
+
+  const activeIndex = topics.findIndex(f => String(f._id) === String(_id)) || 0;
+
   try {
     return {
       resultStatus: {
@@ -75,10 +81,8 @@ export const updateEpisodeTopics = async (
         resultMessage: "Your request was successful."
       },
       result: {
-        activeIndex: updatedEpisode?.topics.findIndex(f => String(f._id) === String(_id)) || 0,
-        topics: updatedEpisode?.topics
-          ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
-          : []
+        activeIndex: activeIndex,
+        topics
       }
     };
   } catch (error) {
