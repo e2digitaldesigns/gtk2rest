@@ -24,7 +24,8 @@ router.post("/topic/thumbnail", uploadSingle, async (req: Request, res: Response
 router.post("/topic-content-transparent", uploadSingle, async (req: Request, res: Response) => {
   const data = await epTopicFunctions.episodeTopicTransparentContent(
     req.body.episodeId,
-    req.body.topicId
+    req.body.topicId,
+    res.locals.userId
   );
 
   res.status(data.resultStatus.responseCode).send(data);
@@ -34,7 +35,8 @@ router.post("/topic-content", uploadSingle, async (req: Request, res: Response) 
   const data = await epTopicFunctions.episodeTopicContent(
     req.body.episodeId,
     req.body.topicId,
-    req.file as Express.Multer.File
+    req.file as Express.Multer.File,
+    res.locals.userId
   );
 
   res.status(data.resultStatus.responseCode).send(data);

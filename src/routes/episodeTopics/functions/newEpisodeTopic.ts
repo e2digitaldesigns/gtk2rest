@@ -1,6 +1,11 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, IEpisode } from "../../../models/episodes.model";
-import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
+import {
+  getUpdatedTopics,
+  mongoObjectId,
+  sortEpisodeTopics,
+  topicContentParser
+} from "../../_routeUtils";
 
 export const newEpisodeTopic = async (episodeId: string, userId: string) => {
   try {
@@ -38,10 +43,8 @@ export const newEpisodeTopic = async (episodeId: string, userId: string) => {
       throw new Error("Failed to copy topic");
     }
 
-    const updatedEpisode = await EpisodeModel.findOne({
-      _id: mongoObjectId(episodeId),
-      userId: mongoObjectId(userId)
-    }).lean();
+    const topics = await getUpdatedTopics(episodeId);
+    const activeIndex = topics.findIndex(f => String(f._id) === String(topicId)) || 0;
 
     return {
       resultStatus: {
@@ -51,10 +54,8 @@ export const newEpisodeTopic = async (episodeId: string, userId: string) => {
         resultMessage: "Your request was successful."
       },
       result: {
-        activeIndex: updatedEpisode?.topics.findIndex(f => String(f._id) === String(topicId)) || 0,
-        topics: updatedEpisode?.topics
-          ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
-          : []
+        activeIndex,
+        topics
       }
     };
   } catch (error) {

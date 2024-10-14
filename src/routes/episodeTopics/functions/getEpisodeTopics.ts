@@ -1,6 +1,6 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
+import { mongoObjectId, sortEpisodeTopicWithContent } from "../../_routeUtils";
 
 export const getEpisodeTopics = async (episodeId: string, userId: string) => {
   try {
@@ -28,9 +28,7 @@ export const getEpisodeTopics = async (episodeId: string, userId: string) => {
       }
     ]);
 
-    const theTopics = result?.[0]?.topics
-      ? sortEpisodeTopics(topicContentParser(result[0].topics))
-      : [];
+    const theTopics = result?.[0]?.topics ? sortEpisodeTopicWithContent(result[0].topics) : [];
 
     return {
       resultStatus: {

@@ -1,13 +1,14 @@
 import { generateFileName, s3Functions } from "../../../utils";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { mongoObjectId } from "../../_routeUtils";
+import { getUpdatedTopics, mongoObjectId } from "../../_routeUtils";
 
 const videoArray = ["mp4", "webm", "ogg"];
 
 export const episodeTopicContent = async (
   episodeId: string,
   topicId: string,
-  formFile: Express.Multer.File
+  formFile: Express.Multer.File,
+  userId: string
 ) => {
   try {
     const { fileExtension, fileName } = generateFileName(formFile);
@@ -54,8 +55,9 @@ export const episodeTopicContent = async (
         resultMessage: "Your request was successful."
       },
       result: {
+        topics: await getUpdatedTopics(episodeId),
         type: type,
-        fileName: fileName,
+        updatedTopicId: topicId,
         url: clouds + fileName
       }
     };

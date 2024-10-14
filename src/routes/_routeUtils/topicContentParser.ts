@@ -1,9 +1,10 @@
 import _cloneDeep from "lodash/cloneDeep";
+import { IEpisodeTopic } from "../../models/episodes.model";
 
 const imageExtenstions = ["jpg", "jpeg", "png", "gif", "svg", "webp"];
 const videoExtenstions = ["mp4", "webm", "ogg"];
 
-export const topicContentParser = (topics: any) => {
+export const topicContentParser = (topics: IEpisodeTopic[]) => {
   const newTopics = topics?.map((topic: any) => {
     const newTopic = _cloneDeep(topic);
 

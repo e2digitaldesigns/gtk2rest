@@ -1,6 +1,6 @@
 import { IEpisodeTopic } from "../../../models/episodes.model";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
+import { getUpdatedTopics, mongoObjectId } from "../../_routeUtils";
 
 export const reorderEpisodeTopics = async (
   episodeId: string,
@@ -21,11 +21,6 @@ export const reorderEpisodeTopics = async (
 
     await Promise.all(updatePromises);
 
-    const updatedEpisode = await EpisodeModel.findOne({
-      _id: mongoObjectId(episodeId),
-      userId: mongoObjectId(userId)
-    }).lean();
-
     return {
       resultStatus: {
         success: true,
@@ -34,9 +29,7 @@ export const reorderEpisodeTopics = async (
         resultMessage: "Your request was successful."
       },
       result: {
-        topics: updatedEpisode?.topics
-          ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
-          : []
+        topics: await getUpdatedTopics(episodeId)
       }
     };
   } catch (error) {

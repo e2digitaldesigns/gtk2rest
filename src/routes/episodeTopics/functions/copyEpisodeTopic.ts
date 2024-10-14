@@ -1,6 +1,6 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
+import { mongoObjectId, sortEpisodeTopicWithContent } from "../../_routeUtils";
 
 export const copyEpisodeTopics = async (episodeId: string, topicId: string, userId: string) => {
   try {
@@ -77,7 +77,7 @@ export const copyEpisodeTopics = async (episodeId: string, topicId: string, user
       },
       result: {
         activeIndex: result.topics.length - 1,
-        topics: sortEpisodeTopics(topicContentParser(result.topics))
+        topics: sortEpisodeTopicWithContent(result.topics)
       }
     };
   } catch (error) {

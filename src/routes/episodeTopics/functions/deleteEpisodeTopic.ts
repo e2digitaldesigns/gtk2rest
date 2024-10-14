@@ -1,7 +1,7 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
 import { s3Functions } from "../../../utils";
-import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
+import { getUpdatedTopics, mongoObjectId } from "../../_routeUtils";
 
 export const deleteEpisodeTopic = async (episodeId: string, topicId: string, userId: string) => {
   try {
@@ -44,11 +44,6 @@ export const deleteEpisodeTopic = async (episodeId: string, topicId: string, use
       }
     );
 
-    const updatedEpisode = await EpisodeModel.findOne({
-      _id: mongoObjectId(episodeId),
-      userId: mongoObjectId(userId)
-    }).lean();
-
     return {
       resultStatus: {
         success: true,
@@ -57,9 +52,7 @@ export const deleteEpisodeTopic = async (episodeId: string, topicId: string, use
         resultMessage: "Your request was successful."
       },
       result: {
-        topics: updatedEpisode?.topics
-          ? sortEpisodeTopics(topicContentParser(updatedEpisode.topics))
-          : []
+        topics: await getUpdatedTopics(episodeId)
       }
     };
   } catch (error) {
