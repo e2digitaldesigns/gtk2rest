@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
 import { Client } from "../types";
 import * as clientState from "../clientState";
 import { ChatLogModel } from "../../../models/chatLog.model";
+import { mongoObjectId } from "../../_routeUtils";
 
 export async function sendChatData(userId: string, clientId?: string) {
   try {
@@ -12,7 +11,7 @@ export async function sendChatData(userId: string, clientId?: string) {
 
     const result = await ChatLogModel.find({
       isDeleted: { $ne: true },
-      gtkUserId: new ObjectId(userId)
+      gtkUserId: mongoObjectId(userId)
     })
       .sort({ date: -1 })
       .limit(20);

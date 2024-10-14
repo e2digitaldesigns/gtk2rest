@@ -1,15 +1,13 @@
-import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
 import { s3Functions } from "../../../utils";
-import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 
 export const deleteEpisodeTopic = async (episodeId: string, topicId: string, userId: string) => {
   try {
     const documentBeforeUpdate = await EpisodeModel.findOne({
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId)
     }).select({
       topics: { $elemMatch: { _id: topicId } }
     });
@@ -20,8 +18,8 @@ export const deleteEpisodeTopic = async (episodeId: string, topicId: string, use
 
     await EpisodeModel.updateMany(
       {
-        _id: new ObjectId(episodeId),
-        userId: new ObjectId(userId),
+        _id: mongoObjectId(episodeId),
+        userId: mongoObjectId(userId),
         "topics.parentId": topicId,
         "topics.isChild": true
       },
@@ -38,8 +36,8 @@ export const deleteEpisodeTopic = async (episodeId: string, topicId: string, use
 
     await EpisodeModel.updateOne(
       {
-        _id: new ObjectId(episodeId),
-        userId: new ObjectId(userId)
+        _id: mongoObjectId(episodeId),
+        userId: mongoObjectId(userId)
       },
       {
         $pull: { topics: { _id: topicId } }
@@ -47,8 +45,8 @@ export const deleteEpisodeTopic = async (episodeId: string, topicId: string, use
     );
 
     const updatedEpisode = await EpisodeModel.findOne({
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId)
     }).lean();
 
     return {

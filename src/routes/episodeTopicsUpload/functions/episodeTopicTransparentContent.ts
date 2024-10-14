@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
 import { s3Functions } from "../../../utils";
 import { EpisodeModel } from "../../../models/episodes.model";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../_routeUtils";
 
 export const episodeTopicTransparentContent = async (episodeId: string, topicId: string) => {
   try {
@@ -13,8 +12,8 @@ export const episodeTopicTransparentContent = async (episodeId: string, topicId:
 
     const episodeContentTopics = await EpisodeModel.findOneAndUpdate(
       {
-        _id: new ObjectId(episodeId),
-        "topics._id": new ObjectId(topicId)
+        _id: mongoObjectId(episodeId),
+        "topics._id": mongoObjectId(topicId)
       },
       {
         $set: {

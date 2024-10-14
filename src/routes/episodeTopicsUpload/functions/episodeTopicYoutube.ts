@@ -1,8 +1,7 @@
 import axios from "axios";
 import { EpisodeModel } from "../../../models/episodes.model";
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
 import { s3Functions } from "../../../utils";
+import { mongoObjectId } from "../../_routeUtils";
 
 export const episodeTopicYoutube = async (episodeId: string, topicId: string, videoUrl: string) => {
   try {
@@ -22,8 +21,8 @@ export const episodeTopicYoutube = async (episodeId: string, topicId: string, vi
 
     const episode = await EpisodeModel.findOneAndUpdate(
       {
-        _id: new ObjectId(episodeId),
-        "topics._id": new ObjectId(topicId)
+        _id: mongoObjectId(episodeId),
+        "topics._id": mongoObjectId(topicId)
       },
       {
         $set: {

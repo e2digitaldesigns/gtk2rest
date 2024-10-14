@@ -1,15 +1,13 @@
-import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../../models/episodes.model";
-
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../../_routeUtils";
 
 export const fetchEpisodeInformation = async (episodeId: string, userId: string) => {
   const result = await EpisodeModel.aggregate([
     {
       $match: {
-        userId: new ObjectId(userId),
-        _id: new ObjectId(episodeId)
+        userId: mongoObjectId(userId),
+        _id: mongoObjectId(episodeId)
       }
     },
     {

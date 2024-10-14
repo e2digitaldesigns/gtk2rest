@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
 import { EpisodeModel } from "../../../models/episodes.model";
 import {
   generateFileName,
@@ -7,6 +5,7 @@ import {
   imageSizeParser,
   s3Functions
 } from "../../../utils";
+import { mongoObjectId } from "../../_routeUtils";
 
 export const episodeTopicThumbnail = async (
   episodeId: string,
@@ -24,12 +23,12 @@ export const episodeTopicThumbnail = async (
     const data = await imageSizeParser(file, width, height);
     const s3Push = await s3Functions.push(data, `images/user-images/${fileName}`);
     if (!s3Push) throw new Error("S3 Push failed");
-    const imageId = new ObjectId() as unknown as string;
+    const imageId = mongoObjectId() as unknown as string;
 
     const episodeTopics = await EpisodeModel.findOneAndUpdate(
       {
-        _id: new ObjectId(episodeId),
-        "topics._id": new ObjectId(topicId)
+        _id: mongoObjectId(episodeId),
+        "topics._id": mongoObjectId(topicId)
       },
       {
         $set: {

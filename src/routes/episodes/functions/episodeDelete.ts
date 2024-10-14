@@ -1,13 +1,12 @@
-import mongoose from "mongoose";
 import { EpisodeModel, IEpisodeTopic, SponsorImages } from "../../../models/episodes.model";
 import { s3Functions } from "../../../utils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../_routeUtils";
 
 export const episodeDelete = async (episodeId: string, userId: string) => {
   try {
     const episode = await EpisodeModel.findOne({
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId)
     }).select({
       logo: 1,
       sponsorImages: 1,
@@ -37,8 +36,8 @@ export const episodeDelete = async (episodeId: string, userId: string) => {
     }
 
     await EpisodeModel.deleteOne({
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId)
     });
 
     return {

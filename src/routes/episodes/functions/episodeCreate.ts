@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-import { EpisodeModel, IEpisode, SponsorImages } from "../../../models/episodes.model";
+import { EpisodeModel, SponsorImages } from "../../../models/episodes.model";
 import { s3Functions } from "../../../utils";
 import { lastEpisodeTopicParser } from "../utils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../_routeUtils";
 
 export const episodeCreate = async (
   currentState: Record<string, boolean>,
@@ -18,7 +17,7 @@ export const episodeCreate = async (
       ? await EpisodeModel.findOne({
           templateId,
           current: true,
-          userId: new ObjectId(userId)
+          userId: mongoObjectId(userId)
         }).select({
           logo: 1,
           hosts: 1,
@@ -37,7 +36,7 @@ export const episodeCreate = async (
 
         return newItem
           ? {
-              _id: new ObjectId(),
+              _id: mongoObjectId(),
               url: newItem
             }
           : null;
@@ -53,7 +52,7 @@ export const episodeCreate = async (
     }
 
     const episode = {
-      userId: new ObjectId(userId),
+      userId: mongoObjectId(userId),
       name: episodeName,
       active: false,
       current: lastEpisode ? false : true,

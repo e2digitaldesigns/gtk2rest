@@ -1,10 +1,8 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
-
 import { ChatLogModel } from "../../../models/chatLog.model";
 import { generateId } from "../../../globalUtils";
 import { sendChatData } from "./sendChatData";
 import { sendChatRankData } from "../../chatRank/functions";
+import { mongoObjectId } from "../../_routeUtils";
 
 type TwitchMessage = {
   channel: string;
@@ -22,7 +20,7 @@ export const logChatMessage = async (userId: string, messageData: TwitchMessage)
     const chatMessage = await new ChatLogModel({
       channel: messageData.channel,
       fontColor: messageData.fontColor,
-      gtkUserId: new ObjectId(userId),
+      gtkUserId: mongoObjectId(userId),
       image: messageData.image || "",
       message: messageData.message,
       msgEmotes: messageData.msgEmotes,

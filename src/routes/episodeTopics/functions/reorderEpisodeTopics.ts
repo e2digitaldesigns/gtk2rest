@@ -1,8 +1,6 @@
 import { IEpisodeTopic } from "../../../models/episodes.model";
-import mongoose from "mongoose";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 
 export const reorderEpisodeTopics = async (
   episodeId: string,
@@ -13,9 +11,9 @@ export const reorderEpisodeTopics = async (
     const updatePromises = topics.map(topic => {
       return EpisodeModel.updateOne(
         {
-          _id: new ObjectId(episodeId),
-          userId: new ObjectId(userId),
-          "topics._id": new ObjectId(topic._id)
+          _id: mongoObjectId(episodeId),
+          userId: mongoObjectId(userId),
+          "topics._id": mongoObjectId(topic._id)
         },
         { $set: { "topics.$.order": topic.order } }
       );
@@ -24,8 +22,8 @@ export const reorderEpisodeTopics = async (
     await Promise.all(updatePromises);
 
     const updatedEpisode = await EpisodeModel.findOne({
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId)
     }).lean();
 
     return {

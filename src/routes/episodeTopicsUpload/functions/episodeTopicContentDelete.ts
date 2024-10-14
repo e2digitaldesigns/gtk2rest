@@ -1,7 +1,6 @@
 import { EpisodeModel } from "../../../models/episodes.model";
-import mongoose from "mongoose";
 import { s3Functions } from "../../../utils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../_routeUtils";
 
 export const episodeTopicContentDelete = async (
   episodeId: string,
@@ -16,8 +15,8 @@ export const episodeTopicContentDelete = async (
       case "topic":
         const topicImageDelete = await EpisodeModel.findOneAndUpdate(
           {
-            _id: new ObjectId(episodeId),
-            "topics._id": new ObjectId(imageId as string)
+            _id: mongoObjectId(episodeId),
+            "topics._id": mongoObjectId(imageId as string)
           },
           {
             $set: {
@@ -32,8 +31,8 @@ export const episodeTopicContentDelete = async (
       case "content":
         const topicContentDelete = await EpisodeModel.findOneAndUpdate(
           {
-            _id: new ObjectId(episodeId),
-            "topics._id": new ObjectId(imageId as string)
+            _id: mongoObjectId(episodeId),
+            "topics._id": mongoObjectId(imageId as string)
           },
           {
             $set: {

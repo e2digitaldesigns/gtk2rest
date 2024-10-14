@@ -1,8 +1,6 @@
-import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, IEpisode } from "../../../../models/episodes.model";
-
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../../_routeUtils";
 
 export const updateEpisodeInformation = async (
   episodeId: string,
@@ -12,8 +10,8 @@ export const updateEpisodeInformation = async (
   try {
     const result = await EpisodeModel.findOneAndUpdate(
       {
-        _id: new ObjectId(episodeId),
-        userId: new ObjectId(userId)
+        _id: mongoObjectId(episodeId),
+        userId: mongoObjectId(userId)
       },
       {
         $set: {

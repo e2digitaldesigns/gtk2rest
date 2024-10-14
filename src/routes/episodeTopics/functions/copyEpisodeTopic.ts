@@ -1,16 +1,14 @@
-import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../models/episodes.model";
-import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 
 export const copyEpisodeTopics = async (episodeId: string, topicId: string, userId: string) => {
   try {
     const episode = await EpisodeModel.aggregate([
       {
         $match: {
-          _id: new ObjectId(episodeId),
-          userId: new ObjectId(userId)
+          _id: mongoObjectId(episodeId),
+          userId: mongoObjectId(userId)
         }
       },
       {
@@ -19,7 +17,7 @@ export const copyEpisodeTopics = async (episodeId: string, topicId: string, user
             $filter: {
               input: "$topics",
               as: "topic",
-              cond: { $eq: ["$$topic._id", new ObjectId(topicId)] }
+              cond: { $eq: ["$$topic._id", mongoObjectId(topicId)] }
             }
           },
           totalTopics: { $size: "$topics" }
@@ -34,7 +32,7 @@ export const copyEpisodeTopics = async (episodeId: string, topicId: string, user
     }
 
     const newTopic = {
-      _id: new ObjectId(),
+      _id: mongoObjectId(),
       desc: originalTopic.desc,
       img: "",
       isChild: originalTopic.isChild,
@@ -52,8 +50,8 @@ export const copyEpisodeTopics = async (episodeId: string, topicId: string, user
 
     const result = await EpisodeModel.findOneAndUpdate(
       {
-        _id: new ObjectId(episodeId),
-        userId: new ObjectId(userId)
+        _id: mongoObjectId(episodeId),
+        userId: mongoObjectId(userId)
       },
       {
         $push: {

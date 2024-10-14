@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
 import { UserCommandsModel } from "../../../../../models/commands.model";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../../../../routes/_routeUtils";
 
 export const validatedCommand = async (gtkUserId: string, command: string): Promise<boolean> => {
   const exceptions = ["!gtk", "!reply", "!cb"];
@@ -12,5 +11,5 @@ export const validatedCommand = async (gtkUserId: string, command: string): Prom
 
   if (!data) return false;
 
-  return data.users.includes(new ObjectId(gtkUserId));
+  return data.users.includes(mongoObjectId(gtkUserId));
 };

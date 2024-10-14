@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
 import { generateFileName, s3Functions } from "../../../utils";
 import { EpisodeModel } from "../../../models/episodes.model";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../../_routeUtils";
 
 const videoArray = ["mp4", "webm", "ogg"];
 
@@ -23,8 +22,8 @@ export const episodeTopicContent = async (
 
     const episodeContentTopics = await EpisodeModel.findOneAndUpdate(
       {
-        _id: new ObjectId(episodeId),
-        "topics._id": new ObjectId(topicId)
+        _id: mongoObjectId(episodeId),
+        "topics._id": mongoObjectId(topicId)
       },
       {
         $set: {

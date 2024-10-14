@@ -1,13 +1,12 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
 import { ChatLogModel } from "../../../models/chatLog.model";
 import { sendChatRankData } from "./sendChatRankData";
+import { mongoObjectId } from "../../_routeUtils";
 
 export const resetChatRanks = async (userId: string) => {
   try {
     const result = await ChatLogModel.updateMany(
       {
-        gtkUserId: new ObjectId(userId)
+        gtkUserId: mongoObjectId(userId)
       },
       {
         isRankReset: true

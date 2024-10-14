@@ -1,24 +1,22 @@
-import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, IEpisode } from "../../../models/episodes.model";
-import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 
 export const newEpisodeTopic = async (episodeId: string, userId: string) => {
   try {
-    const topicId = new ObjectId();
+    const topicId = mongoObjectId();
 
     const episode: IEpisode | null = await EpisodeModel.findOne({
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId)
     }).select({
       topics: 1
     });
 
     const result = await EpisodeModel.findOneAndUpdate(
       {
-        _id: new ObjectId(episodeId),
-        userId: new ObjectId(userId)
+        _id: mongoObjectId(episodeId),
+        userId: mongoObjectId(userId)
       },
       {
         $push: {
@@ -41,8 +39,8 @@ export const newEpisodeTopic = async (episodeId: string, userId: string) => {
     }
 
     const updatedEpisode = await EpisodeModel.findOne({
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId)
     }).lean();
 
     return {

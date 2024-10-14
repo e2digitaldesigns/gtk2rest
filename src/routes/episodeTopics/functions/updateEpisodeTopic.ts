@@ -1,8 +1,6 @@
-import mongoose from "mongoose";
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, IEpisodeTopic } from "../../../models/episodes.model";
-import { sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId, sortEpisodeTopics, topicContentParser } from "../../_routeUtils";
 
 export const updateEpisodeTopics = async (
   {
@@ -21,11 +19,11 @@ export const updateEpisodeTopics = async (
   episodeId: string,
   userId: string
 ) => {
-  const result = await EpisodeModel.updateOne(
+  await EpisodeModel.updateOne(
     {
-      _id: new ObjectId(episodeId),
-      userId: new ObjectId(userId),
-      "topics._id": new ObjectId(_id)
+      _id: mongoObjectId(episodeId),
+      userId: mongoObjectId(userId),
+      "topics._id": mongoObjectId(_id)
     },
     {
       $set: {
@@ -46,8 +44,8 @@ export const updateEpisodeTopics = async (
   if (!isParent) {
     await EpisodeModel.updateMany(
       {
-        _id: new ObjectId(episodeId),
-        userId: new ObjectId(userId),
+        _id: mongoObjectId(episodeId),
+        userId: mongoObjectId(userId),
         "topics.parentId": _id,
         "topics.isChild": true
       },
@@ -64,8 +62,8 @@ export const updateEpisodeTopics = async (
   }
 
   const updatedEpisode = await EpisodeModel.findOne({
-    _id: new ObjectId(episodeId),
-    userId: new ObjectId(userId)
+    _id: mongoObjectId(episodeId),
+    userId: mongoObjectId(userId)
   }).lean();
 
   try {

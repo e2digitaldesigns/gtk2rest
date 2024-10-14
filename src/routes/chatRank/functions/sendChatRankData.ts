@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
 import { Client } from "../types";
 import * as clientState from "../clientState";
 import { ChatLogModel } from "../../../models/chatLog.model";
+import { mongoObjectId } from "../../_routeUtils";
 
 export async function sendChatRankData(userId: string, clientId?: string) {
   try {
@@ -13,7 +12,7 @@ export async function sendChatRankData(userId: string, clientId?: string) {
     const result = await ChatLogModel.aggregate([
       {
         $match: {
-          gtkUserId: new ObjectId(userId),
+          gtkUserId: mongoObjectId(userId),
           isDeleted: { $ne: true },
           isRankReset: { $ne: true }
         }

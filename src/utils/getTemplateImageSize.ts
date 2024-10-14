@@ -1,13 +1,12 @@
-import mongoose from "mongoose";
 import { EpisodeModel } from "../models/episodes.model";
-const ObjectId = mongoose.Types.ObjectId;
+import { mongoObjectId } from "../routes/_routeUtils";
 
 export async function getTemplateImageSize(episodeId: string, userId: string, imageType: string) {
   const template = await EpisodeModel.aggregate([
     {
       $match: {
-        _id: new ObjectId(episodeId),
-        userId: new ObjectId(userId)
+        _id: mongoObjectId(episodeId),
+        userId: mongoObjectId(userId)
       }
     },
     {
