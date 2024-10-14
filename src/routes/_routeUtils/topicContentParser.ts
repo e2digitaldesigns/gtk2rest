@@ -1,28 +1,37 @@
 import _cloneDeep from "lodash/cloneDeep";
-import { IEpisodeTopic } from "../../models/episodes.model";
+import { IEpisodeTopic, TopicContent } from "../../models/episodes.model";
 
-const imageExtenstions = ["jpg", "jpeg", "png", "gif", "svg", "webp"];
-const videoExtenstions = ["mp4", "webm", "ogg"];
+const cloudImageBucket = process.env.S3_CLOUD_IMAGES as string;
+const cloudVideoBucket = process.env.S3_CLOUD_VIDEOS as string;
+
+const contentFileParser = (content: TopicContent | undefined): string => {
+  if (!content) {
+    return "";
+  }
+  const bucket =
+    content.type === "image"
+      ? cloudImageBucket
+      : content.type === "video"
+      ? cloudVideoBucket
+      : null;
+
+  if (bucket && content.file) {
+    return bucket + content.file;
+  }
+
+  return "";
+};
 
 export const topicContentParser = (topics: IEpisodeTopic[]) => {
-  const newTopics = topics?.map((topic: any) => {
+  const newTopics = topics?.map(topic => {
     const newTopic = _cloneDeep(topic);
-
-    newTopic.img = topic.img ? process.env.S3_CLOUD_IMAGES + topic.img : "";
-
-    const ext = topic.video.split(".").pop();
-    const isImage = imageExtenstions.includes(ext as string);
-    const isVideo = videoExtenstions.includes(ext as string);
 
     return {
       ...newTopic,
+      img: topic.img ? cloudImageBucket + topic.img : "",
       content: {
-        type: isImage ? "image" : isVideo ? "video" : null,
-        file: isImage
-          ? process.env.S3_CLOUD_IMAGES + topic.video
-          : isVideo
-          ? process.env.S3_CLOUD_VIDEOS + topic.video
-          : ""
+        type: newTopic?.content?.type || null,
+        file: contentFileParser(newTopic?.content)
       }
     };
   });

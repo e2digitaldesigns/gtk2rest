@@ -21,6 +21,11 @@ export interface IEpisodeTopicVotingOptions {
   value: string;
 }
 
+export interface TopicContent {
+  type: string | null;
+  file: string | null;
+}
+
 export interface IEpisodeTopic {
   _id: Types.ObjectId;
   desc: string;
@@ -37,7 +42,7 @@ export interface IEpisodeTopic {
   chat: string;
   voting: boolean;
   votingOptions?: IEpisodeTopicVotingOptions[];
-  // content: TopicContent;
+  content: TopicContent;
 }
 
 export type SponsorImages = {
@@ -65,6 +70,11 @@ export interface IEpisode {
   logo: string;
 }
 
+const TopicContentSchema = new Schema<TopicContent>({
+  type: { type: String, required: true },
+  file: { type: String, required: true }
+});
+
 const EpisodeHostSchema = new Schema<IEpisodeHost>({
   hostId: { type: Schema.Types.ObjectId },
   seatNum: { type: Number, required: true, default: 0 }
@@ -83,7 +93,8 @@ const EpisodeTopicSchema = new Schema<IEpisodeTopic>({
   video: { type: String, required: false, default: "" },
   notes: { type: String, required: false, default: "" },
   chat: { type: String, required: false, default: "" },
-  voting: { type: Boolean, required: true, default: false }
+  voting: { type: Boolean, required: true, default: false },
+  content: { type: TopicContentSchema, required: true, default: { type: null, file: null } }
 });
 
 const SponsorSchema = new Schema<SponsorImages>({
