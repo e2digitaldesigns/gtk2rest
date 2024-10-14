@@ -1,7 +1,7 @@
 import axios from "axios";
 import { EpisodeModel } from "../../../models/episodes.model";
 import { s3Functions } from "../../../utils";
-import { mongoObjectId } from "../../_routeUtils";
+import { getUpdatedTopics, mongoObjectId } from "../../_routeUtils";
 
 export const episodeTopicYoutube = async (episodeId: string, topicId: string, videoUrl: string) => {
   try {
@@ -56,7 +56,10 @@ export const episodeTopicYoutube = async (episodeId: string, topicId: string, vi
       },
       result: {
         url: fileLocation,
-        fileName
+        fileName,
+        topics: await getUpdatedTopics(episodeId),
+        type: "video",
+        updatedTopicId: topicId
       }
     };
   } catch (error) {

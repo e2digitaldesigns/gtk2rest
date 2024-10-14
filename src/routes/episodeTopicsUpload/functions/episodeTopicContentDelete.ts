@@ -1,22 +1,22 @@
 import { EpisodeModel } from "../../../models/episodes.model";
 import { s3Functions } from "../../../utils";
-import { mongoObjectId } from "../../_routeUtils";
+import { getUpdatedTopics, mongoObjectId } from "../../_routeUtils";
 
 export const episodeTopicContentDelete = async (
   episodeId: string,
-  imageId: string,
-  imageType: string
+  topicId: string,
+  type: string
 ) => {
   let fileToDelete: string | undefined = "";
   let isImage = true;
 
   try {
-    switch (imageType) {
+    switch (type) {
       case "topic":
         const topicImageDelete = await EpisodeModel.findOneAndUpdate(
           {
             _id: mongoObjectId(episodeId),
-            "topics._id": mongoObjectId(imageId as string)
+            "topics._id": mongoObjectId(topicId as string)
           },
           {
             $set: {
@@ -25,14 +25,14 @@ export const episodeTopicContentDelete = async (
           }
         );
 
-        fileToDelete = topicImageDelete?.topics?.find(f => f._id.toString() === imageId)?.img;
+        fileToDelete = topicImageDelete?.topics?.find(f => f._id.toString() === topicId)?.img;
         break;
 
       case "content":
         const topicContentDelete = await EpisodeModel.findOneAndUpdate(
           {
             _id: mongoObjectId(episodeId),
-            "topics._id": mongoObjectId(imageId as string)
+            "topics._id": mongoObjectId(topicId as string)
           },
           {
             $set: {
@@ -42,7 +42,7 @@ export const episodeTopicContentDelete = async (
           }
         );
 
-        fileToDelete = topicContentDelete?.topics?.find(f => f._id.toString() === imageId)?.video;
+        fileToDelete = topicContentDelete?.topics?.find(f => f._id.toString() === topicId)?.video;
 
         const ext = fileToDelete?.split(".").pop();
         isImage = ["jpg", "jpeg", "png", "svg", "webp"].includes(ext as string);
@@ -66,7 +66,12 @@ export const episodeTopicContentDelete = async (
         responseCode: 200,
         resultMessage: "Your request was successful."
       },
-      result: true
+      result: {
+        topics: await getUpdatedTopics(episodeId),
+        type,
+        updatedTopicId: topicId,
+        url: ""
+      }
     };
   } catch (error) {
     return {

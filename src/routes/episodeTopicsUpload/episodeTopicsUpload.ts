@@ -52,10 +52,10 @@ router.post("/topic-content-youtube", async (req: Request, res: Response) => {
   res.status(data.resultStatus.responseCode).send(data);
 });
 
-router.delete("/:episodeId/:imageType/:imageId", async (req: Request, res: Response) => {
+router.delete("/:episodeId/:imageType/:topicId", async (req: Request, res: Response) => {
   const data = await epTopicFunctions.episodeTopicContentDelete(
     req.params.episodeId,
-    req.params.imageId,
+    req.params.topicId,
     req.params.imageType
   );
 
