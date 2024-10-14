@@ -87,7 +87,6 @@ const EpisodeTopicSchema = new Schema<IEpisodeTopic>({
 });
 
 const SponsorSchema = new Schema<SponsorImages>({
-  _id: Types.ObjectId,
   url: { type: String, required: true, default: "" }
 });
 

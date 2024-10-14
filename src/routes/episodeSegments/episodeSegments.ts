@@ -1,8 +1,12 @@
 import express, { Request, Response } from "express";
+import multer from "multer";
 import { verifyToken } from "../_middleware";
 
 import * as episodeSegmentFunctions from "./functions";
 import { IEpisode } from "./../../models/episodes.model";
+
+const storage = multer.memoryStorage();
+const uploadSingle = multer({ storage: storage }).single("file");
 
 const router = express.Router();
 router.use(verifyToken);
@@ -105,6 +109,35 @@ router.put("/socials/:episodeId", async (req: Request, res: Response) => {
     req.params.episodeId,
     res.locals.userId,
     req.body.episodeSocials
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+// EPISODE IMAGES
+router.get("/imaging/:episodeId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.fetchEpisodeImages(
+    req.params.episodeId,
+    res.locals.userId
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.post("/imaging/:episodeId", uploadSingle, async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.uploadEpisodeImages(
+    req.params.episodeId,
+    res.locals.userId,
+    req.file as Express.Multer.File,
+    req.body.imageType
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.put("/imaging/:episodeId", async (req: Request, res: Response) => {
+  const data = await episodeSegmentFunctions.deleteEpisodeImage(
+    req.params.episodeId,
+    res.locals.userId,
+    req.body.imageId,
+    req.body.imageType
   );
   res.status(data.resultStatus.responseCode).send(data);
 });

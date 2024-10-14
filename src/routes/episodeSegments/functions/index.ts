@@ -12,3 +12,7 @@ export * from "./news/reorderEpisodeNews";
 
 export * from "./socialNetworks/fetchEpisodeSocials";
 export * from "./socialNetworks/updateEpisodeSocials";
+
+export * from "./imaging/fetchEpisodeImages";
+export * from "./imaging/uploadEpisodeImages";
+export * from "./imaging/deleteEpisodeImage";
