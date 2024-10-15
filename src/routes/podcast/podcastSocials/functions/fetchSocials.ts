@@ -1,3 +1,4 @@
+import { PipelineStage } from "mongoose";
 import { SocialNetworkModel } from "../../../../models/socialNetworks.model";
 import { mongoObjectId } from "../../../_routeUtils";
 
@@ -9,10 +10,11 @@ export const socialSearch = async (
   site: string,
   userId: string
 ) => {
+  console.log(page, searchTerm, sort, sortBy, site, userId);
   const documentsPerPage = 10;
   const skip = (Number(page) - 1) * documentsPerPage;
 
-  let pipeline: any[] = [
+  const pipeline: PipelineStage[] = [
     {
       $match: {
         userId: mongoObjectId(userId)

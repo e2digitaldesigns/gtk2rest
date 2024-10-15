@@ -21,4 +21,18 @@ router.get("/:page/:sort/:sortby", async (req: Request, res: Response) => {
   res.status(data.resultStatus.responseCode).send(data);
 });
 
+router.post("/", async (req: Request, res: Response) => {
+  const data = await socialNetworkFunctions.createSocial(
+    res.locals.userId,
+    req.body.site,
+    req.body.username
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.delete("/:_id", async (req: Request, res: Response) => {
+  const data = await socialNetworkFunctions.deleteSocial(req.params._id, res.locals.userId);
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
 export const socialNetworks = router;
