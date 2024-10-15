@@ -1,5 +1,5 @@
 import { s3Functions } from "../../../../utils";
-import { EpisodeModel } from "../../../../models/episodes.model";
+import { EpisodeModel } from "../../../../models";
 import { mongoObjectId } from "../../../_routeUtils";
 import { getUpdatedTopics } from "../../_podcastUtils";
 

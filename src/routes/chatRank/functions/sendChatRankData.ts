@@ -1,6 +1,6 @@
 import { Client } from "../types";
 import * as clientState from "../clientState";
-import { ChatLogModel } from "../../../models/chatLog.model";
+import { ChatLogModel } from "../../../models";
 import { mongoObjectId } from "../../_routeUtils";
 
 export async function sendChatRankData(userId: string, clientId?: string) {

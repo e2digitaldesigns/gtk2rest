@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { socials } from "./commonSocials";
-import { TemplateModel } from "../../models/templates.model";
+import { TemplateModel } from "../../models";
 
 const router = express.Router();
 

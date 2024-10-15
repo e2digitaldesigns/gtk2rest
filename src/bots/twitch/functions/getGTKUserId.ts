@@ -1,4 +1,4 @@
-import { TwitchAuthModel } from "../../../models/twitchAuth.model";
+import { TwitchAuthModel } from "../../../models";
 
 export async function getGTKUserId(twitchChannel: string): Promise<string | undefined> {
   try {

@@ -1,4 +1,4 @@
-import { EpisodeModel, SponsorImages } from "../../../../models/episodes.model";
+import { EpisodeModel, SponsorImages } from "../../../../models";
 import { s3Functions } from "../../../../utils";
 import { lastEpisodeTopicParser } from "../../_podcastUtils";
 import { mongoObjectId } from "../../../_routeUtils";

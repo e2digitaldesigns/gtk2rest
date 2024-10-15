@@ -1,4 +1,4 @@
-import { SponsorImages } from "../../../models/episodes.model";
+import { SponsorImages } from "../../../models";
 
 export const episodeImageParser = (images: string | SponsorImages[]) => {
   if (typeof images === "string") {

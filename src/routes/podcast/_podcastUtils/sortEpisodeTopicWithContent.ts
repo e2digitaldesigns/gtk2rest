@@ -1,4 +1,4 @@
-import { IEpisodeTopic } from "../../../models/episodes.model";
+import { IEpisodeTopic } from "../../../models";
 import { sortEpisodeTopics } from "./sortEpisodeTopics";
 import { topicContentParser } from "./topicContentParser";
 

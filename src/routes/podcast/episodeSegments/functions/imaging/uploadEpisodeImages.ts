@@ -1,4 +1,4 @@
-import { EpisodeModel, SponsorImages } from "../../../../../models/episodes.model";
+import { EpisodeModel, SponsorImages } from "../../../../../models";
 import {
   generateFileName,
   getTemplateImageSize,

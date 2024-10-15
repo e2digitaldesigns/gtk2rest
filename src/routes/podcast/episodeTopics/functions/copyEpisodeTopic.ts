@@ -1,5 +1,5 @@
 import _sortBy from "lodash/sortBy";
-import { EpisodeModel } from "../../../../models/episodes.model";
+import { EpisodeModel } from "../../../../models";
 import { mongoObjectId } from "../../../_routeUtils";
 import { sortEpisodeTopicWithContent } from "../../_podcastUtils";
 

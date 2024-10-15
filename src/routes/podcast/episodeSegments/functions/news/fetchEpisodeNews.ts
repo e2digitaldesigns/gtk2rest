@@ -1,4 +1,4 @@
-import { EpisodeModel } from "../../../../../models/episodes.model";
+import { EpisodeModel } from "../../../../../models";
 import { mongoObjectId } from "../../../../_routeUtils/mongoObjectId";
 
 export const fetchEpisodeNews = async (episodeId: string, userId: string) => {

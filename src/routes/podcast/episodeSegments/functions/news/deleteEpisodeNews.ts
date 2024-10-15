@@ -1,4 +1,4 @@
-import { EpisodeModel } from "../../../../../models/episodes.model";
+import { EpisodeModel } from "../../../../../models";
 import { mongoObjectId } from "../../../../_routeUtils/mongoObjectId";
 
 export const deleteEpisodeNews = async (episodeId: string, tickerId: string, userId: string) => {

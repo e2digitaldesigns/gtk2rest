@@ -1,4 +1,4 @@
-import { EpisodeModel } from "../../../../../models/episodes.model";
+import { EpisodeModel } from "../../../../../models";
 import { ISocialNetworks } from "../../../../../models/socialNetworks.model";
 import { mongoObjectId } from "../../../../_routeUtils/mongoObjectId";
 

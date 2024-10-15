@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const ObjectId = mongoose.Types.ObjectId;
 import JWT from "jsonwebtoken";
-import { UsersModel } from "../../../models/users.model";
+import { UsersModel } from "../../../models";
 
 export const adminLogin = async (email: string, name: string, picture: string) => {
   const secretKey = process.env.JWT_SECRET_TOKEN as string;

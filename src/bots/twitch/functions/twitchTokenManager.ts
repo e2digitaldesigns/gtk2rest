@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GtkTwitchBotModel } from "../../../models/gtkBot.model";
+import { GtkTwitchBotModel } from "../../../models";
 
 const botName = "iconicbotty";
 

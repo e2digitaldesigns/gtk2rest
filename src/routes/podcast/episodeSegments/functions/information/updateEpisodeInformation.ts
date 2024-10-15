@@ -1,5 +1,5 @@
 import _sortBy from "lodash/sortBy";
-import { EpisodeModel, IEpisode } from "../../../../../models/episodes.model";
+import { EpisodeModel, IEpisode } from "../../../../../models";
 import { mongoObjectId } from "../../../../_routeUtils";
 
 export const updateEpisodeInformation = async (

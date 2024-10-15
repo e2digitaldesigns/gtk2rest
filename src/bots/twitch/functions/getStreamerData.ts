@@ -1,4 +1,4 @@
-import { TwitchAuthModel } from "../../../models/twitchAuth.model";
+import { TwitchAuthModel } from "../../../models";
 
 export async function getStreamerData(streamerChannel: string) {
   const streamerData = await TwitchAuthModel.findOne({

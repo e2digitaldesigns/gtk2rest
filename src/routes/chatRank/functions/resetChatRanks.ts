@@ -1,4 +1,4 @@
-import { ChatLogModel } from "../../../models/chatLog.model";
+import { ChatLogModel } from "../../../models";
 import { sendChatRankData } from "./sendChatRankData";
 import { mongoObjectId } from "../../_routeUtils";
 

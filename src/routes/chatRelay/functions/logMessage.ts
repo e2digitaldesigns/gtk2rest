@@ -1,4 +1,4 @@
-import { ChatLogModel } from "../../../models/chatLog.model";
+import { ChatLogModel } from "../../../models";
 import { generateId } from "../../../globalUtils";
 import { sendChatData } from "./sendChatData";
 import { sendChatRankData } from "../../chatRank/functions";

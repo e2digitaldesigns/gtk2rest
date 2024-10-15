@@ -1,4 +1,4 @@
-import { UserCommandsModel } from "../../../../../models/commands.model";
+import { UserCommandsModel } from "../../../../../models";
 import { mongoObjectId } from "../../../../../routes/_routeUtils";
 
 export const validatedCommand = async (gtkUserId: string, command: string): Promise<boolean> => {

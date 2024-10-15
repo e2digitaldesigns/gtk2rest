@@ -1,4 +1,4 @@
-import { UserMessageIgnoreSchemaModel } from "../../../models/ignoreList.model";
+import { UserMessageIgnoreSchemaModel } from "../../../models";
 
 export async function getIgnoreList(channel: string) {
   try {

@@ -1,5 +1,5 @@
-import { IEpisodeTopic } from "../../../../models/episodes.model";
-import { EpisodeModel } from "../../../../models/episodes.model";
+import { IEpisodeTopic } from "../../../../models";
+import { EpisodeModel } from "../../../../models";
 import { mongoObjectId } from "../../../_routeUtils";
 import { getUpdatedTopics } from "../../_podcastUtils";
 

@@ -1,6 +1,6 @@
-import { EpisodeModel } from "../../../../../models/episodes.model";
+import { EpisodeModel } from "../../../../../models";
 import { mongoObjectId } from "../../../../_routeUtils/mongoObjectId";
-import { IEpisodeTicker } from "../../../../../models/episodes.model";
+import { IEpisodeTicker } from "../../../../../models";
 
 export const reorderEpisodeNews = async (
   episodeId: string,

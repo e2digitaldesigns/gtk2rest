@@ -1,4 +1,4 @@
-import { IEpisodeTopic } from "../../../models/episodes.model";
+import { IEpisodeTopic } from "../../../models";
 import { s3Functions } from "../../../utils";
 
 export const lastEpisodeTopicParser = async (useCurrent: boolean, topics?: IEpisodeTopic[]) => {

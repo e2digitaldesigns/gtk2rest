@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TwitchAuthModel } from "../../../models/twitchAuth.model";
+import { TwitchAuthModel } from "../../../models";
 
 export async function refreshTwitchStreamerToken(
   twitchUsername: string,

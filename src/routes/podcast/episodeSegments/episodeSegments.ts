@@ -3,7 +3,7 @@ import multer from "multer";
 import { verifyToken } from "../../_middleware";
 
 import * as episodeSegmentFunctions from "./functions";
-import { IEpisode } from "../../../models/episodes.model";
+import { IEpisode } from "../../../models";
 
 const storage = multer.memoryStorage();
 const uploadSingle = multer({ storage: storage }).single("file");

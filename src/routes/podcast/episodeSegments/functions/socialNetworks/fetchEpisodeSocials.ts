@@ -1,5 +1,4 @@
-import { EpisodeModel } from "../../../../../models/episodes.model";
-import { SocialNetworkModel } from "../../../../../models/socialNetworks.model";
+import { EpisodeModel, SocialNetworkModel } from "../../../../../models";
 import { mongoObjectId } from "../../../../_routeUtils/mongoObjectId";
 import _sortBy from "lodash/sortBy";
 

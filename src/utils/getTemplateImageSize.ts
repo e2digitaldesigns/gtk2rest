@@ -1,4 +1,4 @@
-import { EpisodeModel } from "../models/episodes.model";
+import { EpisodeModel } from "../models";
 import { mongoObjectId } from "../routes/_routeUtils";
 
 export async function getTemplateImageSize(episodeId: string, userId: string, imageType: string) {

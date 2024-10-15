@@ -1,4 +1,4 @@
-import { EpisodeModel } from "../../../../../models/episodes.model";
+import { EpisodeModel } from "../../../../../models";
 import { mongoObjectId } from "../../../../_routeUtils";
 import { episodeImageParser } from "../../../_podcastUtils";
 
