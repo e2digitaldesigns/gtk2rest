@@ -7,3 +7,4 @@ export * from "./podcast/episodeTopics/episodeTopics";
 export * from "./podcast/episodeTopicsUpload/episodeTopicsUpload";
 export * from "./podcast/episodeSegments/episodeSegments";
 export * from "./podcast/socialNetworks/socialNetworks";
+export * from "./podcast/podcastHost/podcastHost";
