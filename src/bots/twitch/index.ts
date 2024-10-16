@@ -73,3 +73,51 @@ export const sendTwitchChatMessage = (channel: string, message: string) => {
   }
   twitchBotClient.say(channel, message);
 };
+
+export const isChannelInClient = (channel: string) => {
+  if (!twitchBotClient) {
+    throw new Error("The TwitchBot has not been initialized yet.");
+  }
+
+  const currentChannels = twitchBotClient.chat.currentChannels;
+  return currentChannels.includes("#" + channel.toLowerCase());
+};
+
+export const addChannel = async (channel: string) => {
+  if (!twitchBotClient) {
+    throw new Error("The TwitchBot has not been initialized yet.");
+  }
+
+  await twitchBotClient.chat.join(channel.toLowerCase());
+  const isInClient = true;
+  return isInClient;
+};
+
+export const removeChannel = async (channel: string) => {
+  if (!twitchBotClient) {
+    throw new Error("The TwitchBot has not been initialized yet.");
+  }
+
+  await twitchBotClient.chat.part(channel.toLowerCase());
+};
+
+export const twitchBotTester = async () => {
+  if (!twitchBotClient) {
+    throw new Error("The TwitchBot has not been initialized yet.");
+  }
+
+  return {
+    currentChannels: twitchBotClient.chat.currentChannels,
+    isIconConnected: twitchBotClient.chat.currentChannels.includes("icon33"),
+    isIconHashConnected: twitchBotClient.chat.currentChannels.includes("#icon33")
+  };
+};
+
+async function getDataWithDelay(channel: string): Promise<boolean> {
+  return new Promise(async resolve => {
+    setTimeout(async () => {
+      const data = await isChannelInClient(channel);
+      resolve(data);
+    }, 1000);
+  });
+}

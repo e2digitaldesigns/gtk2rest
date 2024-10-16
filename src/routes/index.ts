@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import * as routes from "./routes";
-import { sendTwitchChatMessage } from "../bots/twitch";
+import { twitchBotTester } from "../bots/twitch";
 
 export const routing = (app: Express) => {
   const prefix = "/api/v1/";
@@ -17,9 +17,12 @@ export const routing = (app: Express) => {
 
   app.use(`${prefix}podcast-socials`, routes.socialNetworks);
   app.use(`${prefix}podcast-hosts`, routes.podcastHosts);
+  app.use(`${prefix}podcast-commands`, routes.podcastCommands);
+  app.use(`${prefix}podcast-canned-messages`, routes.podcastMessages);
+  app.use(`${prefix}twitch-chat`, routes.twitchChat);
 
-  app.get("/", (_, res) => {
-    sendTwitchChatMessage("icon33", "Hello World!");
-    res.send("Hello World!");
+  app.get("/", async (_, res) => {
+    const testing = await twitchBotTester();
+    res.json({ msg: "Hello World!", testing });
   });
 };

@@ -1,4 +1,6 @@
+export * from "./cannedMessages.model";
 export * from "./chatLog.model";
+export * from "./commands.model";
 export * from "./commands.model";
 export * from "./episodes.model";
 export * from "./gtkBot.model";

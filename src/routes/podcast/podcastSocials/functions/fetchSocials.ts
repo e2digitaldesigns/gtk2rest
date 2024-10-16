@@ -10,7 +10,6 @@ export const socialSearch = async (
   site: string,
   userId: string
 ) => {
-  console.log(page, searchTerm, sort, sortBy, site, userId);
   const documentsPerPage = 10;
   const skip = (Number(page) - 1) * documentsPerPage;
 

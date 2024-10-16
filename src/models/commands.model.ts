@@ -1,6 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 
-interface CommandDocument {
+export interface CommandDocument {
   _id: Types.ObjectId;
   command: string;
 
@@ -17,9 +17,7 @@ const CommandSchema = new Schema<CommandDocument>({
   usage: { type: String, required: true, default: " " },
   subType: { type: String, required: true, default: " " },
   type: { type: String, required: true, default: " " },
-  users: [
-    { type: Schema.Types.ObjectId, ref: "users", required: true, default: [] }
-  ]
+  users: [{ type: Schema.Types.ObjectId, ref: "users", required: true, default: [] }]
 });
 
 export const UserCommandsModel = model("commands", CommandSchema);
