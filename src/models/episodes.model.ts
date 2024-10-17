@@ -40,8 +40,6 @@ export interface IEpisodeTopic {
   video: string;
   notes: string;
   chat: string;
-  voting: boolean;
-  votingOptions?: IEpisodeTopicVotingOptions[];
   content: TopicContent;
 }
 
@@ -93,7 +91,6 @@ const EpisodeTopicSchema = new Schema<IEpisodeTopic>({
   video: { type: String, required: false, default: "" },
   notes: { type: String, required: false, default: "" },
   chat: { type: String, required: false, default: "" },
-  voting: { type: Boolean, required: true, default: false },
   content: { type: TopicContentSchema, required: true, default: { type: null, file: null } }
 });
 

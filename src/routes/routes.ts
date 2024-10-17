@@ -2,12 +2,16 @@ export * from "./applicationData/applicationData";
 export * from "./auth/auth";
 export * from "./chatRank/chatRank";
 export * from "./chatRelay/chatRelay";
-export * from "./podcast/episodes/episodes";
-export * from "./podcast/episodeSegments/episodeSegments";
-export * from "./podcast/episodeTopics/episodeTopics";
-export * from "./podcast/episodeTopicsUpload/episodeTopicsUpload";
-export * from "./podcast/podcastCommands/podcastCommands";
-export * from "./podcast/podcastHost/podcastHost";
-export * from "./podcast/podcastMessages/podcastMessages";
-export * from "./podcast/podcastSocials/podcastSocials";
+export * from "./podcast/admin/episodes/episodes";
+export * from "./podcast/admin/episodeSegments/episodeSegments";
+export * from "./podcast/admin/episodeTopics/episodeTopics";
+export * from "./podcast/admin/episodeTopicsUpload/episodeTopicsUpload";
+export * from "./podcast/admin/podcastCommands/podcastCommands";
+export * from "./podcast/admin/podcastHost/podcastHost";
+export * from "./podcast/admin/podcastMessages/podcastMessages";
+export * from "./podcast/admin/podcastSocials/podcastSocials";
 export * from "./twitchChat/twitchChat";
+
+export * from "./podcast/showTime/episodeData/episodeData";
+
+export * from "./webSocket/webSocket";

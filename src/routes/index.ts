@@ -21,6 +21,10 @@ export const routing = (app: Express) => {
   app.use(`${prefix}podcast-canned-messages`, routes.podcastMessages);
   app.use(`${prefix}twitch-chat`, routes.twitchChat);
 
+  app.use(`${prefix}episode-data`, routes.episodeData);
+
+  app.use(`${prefix}socket`, routes.socket);
+
   app.get("/", async (_, res) => {
     const testing = await twitchBotTester();
     res.json({ msg: "Hello World!", testing });

@@ -1,6 +1,6 @@
 import { SponsorImages } from "../../../models";
 
-export const episodeImageParser = (images: string | SponsorImages[]): string | SponsorImages[] => {
+export const showTimeImageParser = (images: string | SponsorImages[]): string | String[] => {
   const baseUrl = process.env.S3_CLOUD_IMAGES as string;
 
   if (typeof images === "string") {
@@ -8,10 +8,7 @@ export const episodeImageParser = (images: string | SponsorImages[]): string | S
   }
 
   if (Array.isArray(images)) {
-    return images.map((image: SponsorImages) => ({
-      ...image,
-      url: `${baseUrl}${image.url}`
-    }));
+    return images.map((image: SponsorImages) => `${baseUrl}${image.url}`);
   }
 
   throw new Error("Invalid input type for images");

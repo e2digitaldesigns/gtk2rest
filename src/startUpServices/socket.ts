@@ -5,7 +5,7 @@ let io: SocketServer | null = null;
 
 export const initializeSocket = (server: HttpServer) => {
   if (io) {
-    console.log("Socket.io is already initialized.");
+    console.error("Socket.io is already initialized.");
     return;
   }
 
