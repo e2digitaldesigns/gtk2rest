@@ -4,6 +4,7 @@ import { generateId } from "../../globalUtils";
 import * as chatRelayFunctions from "./functions";
 import * as clientState from "./clientState";
 import { CustomResponse } from "./types";
+import { verifyToken } from "../_middleware";
 
 const router = express.Router();
 
@@ -32,9 +33,13 @@ router.post("/log/:userId", async (req, res) => {
   res.status(data.resultStatus.responseCode).send(data);
 });
 
-router.patch("/remove", async (req, res) => {
-  const { userId, messageId } = req.body;
-  const data = await chatRelayFunctions.deleteChatMessage(userId, messageId);
+router.patch("/remove", verifyToken, async (req, res) => {
+  const data = await chatRelayFunctions.deleteChatMessage(res.locals.userId, req.body.messageId);
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.patch("/reset", verifyToken, async (req, res) => {
+  const data = await chatRelayFunctions.resetChatMessages(res.locals.userId);
   res.status(data.resultStatus.responseCode).send(data);
 });
 

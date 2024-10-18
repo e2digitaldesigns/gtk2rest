@@ -24,6 +24,7 @@ export const routing = (app: Express) => {
   app.use(`${prefix}episode-data`, routes.episodeData);
 
   app.use(`${prefix}socket`, routes.socket);
+  app.use(`${prefix}templates`, routes.templates);
 
   app.get("/", async (_, res) => {
     const testing = await twitchBotTester();

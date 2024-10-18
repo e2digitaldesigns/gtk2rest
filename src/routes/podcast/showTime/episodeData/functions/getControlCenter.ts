@@ -1,6 +1,7 @@
 import { EpisodeModel } from "../../../../../models";
 import { mongoObjectId } from "../../../../_routeUtils";
 import { sortEpisodeTopicWithContent } from "../../../_podcastUtils";
+import { showTimeHostParser } from "./../../../_podcastUtils/showTimeHostParser";
 
 export const getControlCenter = async (userId: string, templateId: string) => {
   try {
@@ -29,9 +30,12 @@ export const getControlCenter = async (userId: string, templateId: string) => {
 
     const epData = result[0];
 
+    console.log(32, epData.host);
+
     const data = {
       _id: epData._id,
       airDate: epData.airDate,
+      hosts: showTimeHostParser(epData.availableHosts, epData.hosts),
       logo: epData.logo,
       name: epData.name,
       number: epData.number,

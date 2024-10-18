@@ -29,7 +29,7 @@ router.get("/show-runner/:episodeId", async (req: Request, res: Response) => {
   res.status(data.resultStatus.responseCode).send(data);
 });
 
-router.get("/controlCenter/:templateId", verifyToken, async (req: Request, res: Response) => {
+router.get("/control-center/:templateId", verifyToken, async (req: Request, res: Response) => {
   const data = await episodeFunctions.getControlCenter(res.locals.userId, req.params.templateId);
 
   res.status(data.resultStatus.responseCode).send(data);

@@ -19,4 +19,14 @@ router.post("/add-to-chat", verifyToken, async (req: Request, res: Response) => 
   res.status(data.resultStatus.responseCode).send(data);
 });
 
+router.get("/twitch-username/", verifyToken, async (req: Request, res: Response) => {
+  const data = await twitchFunctions.getTwitchUsername(res.locals.userId);
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
+router.post("/send-message/", verifyToken, async (req: Request, res: Response) => {
+  const data = await twitchFunctions.sendMessage(res.locals.userId, req.body.message);
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
 export const twitchChat = router;
