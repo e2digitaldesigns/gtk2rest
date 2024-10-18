@@ -29,4 +29,13 @@ router.post("/send-message/", verifyToken, async (req: Request, res: Response) =
   res.status(data.resultStatus.responseCode).send(data);
 });
 
+router.patch("/stream-title-update/", verifyToken, async (req: Request, res: Response) => {
+  const data = await twitchFunctions.streamTitleUpdate(
+    res.locals.userId,
+    req.body.episodeId,
+    req.body.topicId
+  );
+  res.status(data.resultStatus.responseCode).send(data);
+});
+
 export const twitchChat = router;

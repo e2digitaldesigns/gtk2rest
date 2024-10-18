@@ -30,8 +30,6 @@ export const getControlCenter = async (userId: string, templateId: string) => {
 
     const epData = result[0];
 
-    console.log(32, epData.host);
-
     const data = {
       _id: epData._id,
       airDate: epData.airDate,
