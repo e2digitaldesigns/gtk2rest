@@ -1,34 +1,39 @@
 import { Client } from "../types";
 import * as clientState from "../clientState";
-import { ChatLogModel } from "../../../models";
+import { ChatVotingModel } from "../../../models";
 import { mongoObjectId } from "../../_routeUtils";
 
-export async function sendChatRankData(userId: string, clientId?: string) {
+export async function sendChatVotingData(userId: string, clientId?: string) {
   try {
     const dataLimit = 50;
     const connectedClients = clientId
       ? clientState.getClientByResId(clientId)
       : clientState.getClientsByUserId(userId);
 
-    const result = await ChatLogModel.aggregate([
+    const result = await ChatVotingModel.aggregate([
       {
         $match: {
           gtkUserId: mongoObjectId(userId),
-          isDeleted: { $ne: true },
-          isRankReset: { $ne: true }
+          isDeleted: { $ne: true }
         }
       },
       {
         $group: {
-          _id: "$username",
-          username: { $last: "$username" },
-          image: { $last: "$image" },
-          messageCount: { $sum: 1 }
+          _id: "$chatterUsername",
+          username: { $last: "$chatterUsername" },
+          image: { $last: "$chatterImage" },
+          votes: { $sum: "$votes" }
         }
       },
-      { $sort: { messageCount: -1, date: 1 } },
+      { $sort: { votes: -1, date: -1 } },
       { $limit: dataLimit }
     ]).exec();
+
+    if (result?.length > 0) {
+      result.forEach((element, index) => {
+        element.rank = index + 1;
+      });
+    }
 
     connectedClients.forEach((client: Client) => {
       if (client) {

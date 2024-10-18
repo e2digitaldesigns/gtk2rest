@@ -16,3 +16,4 @@ export * from "./podcast/showTime/episodeData/episodeData";
 
 export * from "./webSocket/webSocket";
 export * from "./podcast/templates/templates";
+export * from "./chatVoting/chatVoting";

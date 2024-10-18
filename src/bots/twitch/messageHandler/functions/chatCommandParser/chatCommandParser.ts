@@ -1,5 +1,6 @@
 import { MessageEvent } from "@twurple/easy-bot";
 import { validatedCommand } from "./isCommandValid";
+import { logChatVote } from "../../../../../routes/chatVoting/functions";
 
 export const chatCommandParser = async (
   channel: string,
@@ -12,8 +13,6 @@ export const chatCommandParser = async (
 
   const trimmedMessage = messageEvent.text.toLowerCase().trim();
   const [typedCommand, target] = trimmedMessage.split(" ");
-
-  console.log({ typedCommand, target });
 
   const validCommand = await validatedCommand(gtkUserId, typedCommand);
 
@@ -42,13 +41,21 @@ export const chatCommandParser = async (
     "!d1": () => console.log("d1"),
     "!d2": () => console.log("d2"),
     "!d3": () => console.log("d3"),
-    "!d4": () => console.log("d4")
+    "!d4": () => console.log("d4"),
+
+    "!dv": () => {
+      logChatVote(gtkUserId, "dislike", messageEvent.userName, target, "username");
+    },
+
+    "!uv": () => {
+      logChatVote(gtkUserId, "like", messageEvent.userName, target, "username");
+    }
   };
 
   if (commandActions[typedCommand]) {
     await commandActions[typedCommand]();
   } else {
-    console.log("chatCommandParser.ts", "No command found");
+    console.error("chatCommandParser.ts", "No command found");
   }
 };
 

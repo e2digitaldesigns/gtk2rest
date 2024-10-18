@@ -38,7 +38,7 @@ router.patch("/remove", verifyToken, async (req, res) => {
   res.status(data.resultStatus.responseCode).send(data);
 });
 
-router.patch("/reset", verifyToken, async (req, res) => {
+router.patch("/reset", verifyToken, async (_, res) => {
   const data = await chatRelayFunctions.resetChatMessages(res.locals.userId);
   res.status(data.resultStatus.responseCode).send(data);
 });

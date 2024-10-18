@@ -1,12 +1,12 @@
-import { ChatLogModel } from "../../../models";
-import { sendChatRankData } from "./sendChatRankData";
+import { ChatVotingModel } from "../../../models";
 import { mongoObjectId } from "../../_routeUtils";
+import { sendChatVotingData } from "./sendChatVotingData";
 
-export const resetChatRanks = async (userId: string) => {
+export const resetChatVoting = async (userId: string) => {
   try {
-    await ChatLogModel.updateMany({ gtkUserId: mongoObjectId(userId) }, { isRankReset: true });
+    await ChatVotingModel.updateMany({ gtkUserId: mongoObjectId(userId) }, { isDeleted: true });
 
-    sendChatRankData(userId);
+    sendChatVotingData(userId);
 
     return {
       resultStatus: {
