@@ -3,19 +3,7 @@ import { EpisodeModel, IEpisodeTopic } from "../../../../../models";
 import { mongoObjectId, getUpdatedTopics } from "../../../../../utils";
 
 export const updateEpisodeTopics = async (
-  {
-    _id,
-    articles,
-    chat,
-    desc,
-    isChild,
-    isParent,
-    name,
-    notes,
-    parentId,
-    timer,
-    voting
-  }: IEpisodeTopic,
+  { _id, articles, chat, desc, isChild, isParent, name, notes, parentId, timer }: IEpisodeTopic,
   episodeId: string,
   userId: string
 ) => {
@@ -35,8 +23,7 @@ export const updateEpisodeTopics = async (
         "topics.$.timer": timer,
         "topics.$.articles": articles,
         "topics.$.notes": notes,
-        "topics.$.chat": chat,
-        "topics.$.voting": voting
+        "topics.$.chat": chat
       }
     }
   );
