@@ -1,7 +1,10 @@
-import { generateFileName, s3Functions } from "../../../../../utils";
+import {
+  generateFileName,
+  s3Functions,
+  getUpdatedTopics,
+  mongoObjectId
+} from "../../../../../utils";
 import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { getUpdatedTopics } from "../../../_podcastUtils";
 
 const videoArray = ["mp4", "webm", "ogg"];
 

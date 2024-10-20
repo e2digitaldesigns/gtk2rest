@@ -1,8 +1,6 @@
 import axios from "axios";
 import { EpisodeModel } from "../../../../../models";
-import { s3Functions } from "../../../../../utils";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { getUpdatedTopics } from "../../../_podcastUtils";
+import { s3Functions, mongoObjectId, getUpdatedTopics } from "../../../../../utils";
 
 export const episodeTopicYoutube = async (episodeId: string, topicId: string, videoUrl: string) => {
   try {

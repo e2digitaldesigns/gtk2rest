@@ -1,5 +1,5 @@
 import { ChatVotingModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 import { sendChatVotingData } from "./sendChatVotingData";
 
 export const resetChatVoting = async (userId: string) => {

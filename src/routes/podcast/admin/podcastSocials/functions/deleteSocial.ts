@@ -1,5 +1,5 @@
 import { SocialNetworkModel } from "../../../../../models/socialNetworks.model";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const deleteSocial = async (socialId: string, userId: string) => {
   try {

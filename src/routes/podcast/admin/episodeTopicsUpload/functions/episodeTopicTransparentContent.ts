@@ -1,7 +1,5 @@
-import { s3Functions } from "../../../../../utils";
+import { s3Functions, getUpdatedTopics, mongoObjectId } from "../../../../../utils";
 import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { getUpdatedTopics } from "../../../_podcastUtils";
 
 export const episodeTopicTransparentContent = async (
   episodeId: string,

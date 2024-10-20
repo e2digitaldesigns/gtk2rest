@@ -1,5 +1,5 @@
 import _sortBy from "lodash/sortBy";
-import { IEpisodeTopic } from "../../../models";
+import { IEpisodeTopic } from "../../models";
 
 export const sortEpisodeTopics = (topics: IEpisodeTopic[]): IEpisodeTopic[] => {
   let sortedTopics: IEpisodeTopic[] = [];

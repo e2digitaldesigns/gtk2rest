@@ -1,5 +1,5 @@
-import { EpisodeModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { EpisodeModel } from "../../models";
+import { mongoObjectId } from "../routeUtils";
 import { sortEpisodeTopicWithContent } from "./sortEpisodeTopicWithContent";
 
 export const getUpdatedTopics = async (episodeId: string) => {

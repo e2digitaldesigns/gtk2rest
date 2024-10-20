@@ -1,12 +1,12 @@
 import { EpisodeModel, SponsorImages } from "../../../../../../models";
 import {
+  episodeImageParser,
   generateFileName,
   getTemplateImageSize,
   imageSizeParser,
+  mongoObjectId,
   s3Functions
 } from "../../../../../../utils";
-import { mongoObjectId } from "../../../../../_routeUtils";
-import { episodeImageParser } from "../../../../_podcastUtils";
 
 type UploadFunctions = (episodeId: string, fileName: string) => Promise<void>;
 

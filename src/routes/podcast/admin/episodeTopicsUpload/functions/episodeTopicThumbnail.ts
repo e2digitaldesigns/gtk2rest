@@ -5,7 +5,7 @@ import {
   imageSizeParser,
   s3Functions
 } from "../../../../../utils";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const episodeTopicThumbnail = async (
   episodeId: string,

@@ -1,10 +1,10 @@
 import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
 import {
+  logoImageParser,
+  mongoObjectId,
   sortEpisodeTopicWithContent,
-  sponsorImageParser,
-  logoImageParser
-} from "../../../_podcastUtils";
+  sponsorImageParser
+} from "../../../../../utils";
 
 export const episodeById = async (episodeId: string, userId: string) => {
   try {

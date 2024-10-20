@@ -1,5 +1,5 @@
 import _cloneDeep from "lodash/cloneDeep";
-import { IEpisodeTopic, TopicContent } from "../../../models";
+import { IEpisodeTopic, TopicContent } from "../../models";
 
 const cloudImageBucket = process.env.S3_CLOUD_IMAGES as string;
 const cloudVideoBucket = process.env.S3_CLOUD_VIDEOS as string;

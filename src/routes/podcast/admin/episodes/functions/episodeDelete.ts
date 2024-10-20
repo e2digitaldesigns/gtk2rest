@@ -1,6 +1,6 @@
 import { EpisodeModel, IEpisodeTopic, SponsorImages } from "../../../../../models";
 import { s3Functions } from "../../../../../utils";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const episodeDelete = async (episodeId: string, userId: string) => {
   try {

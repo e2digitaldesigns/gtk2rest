@@ -1,7 +1,7 @@
-import { generateId } from "../globalUtils";
-import { generateEmojiArray } from "../routes/podcast/_podcastUtils";
 import { parseVotingAction } from "../routes/webSocket/functions";
 import { getSocketServer } from "../startUpServices/socket";
+import { generateId } from "./generateId";
+import { generateEmojiArray } from "./podcastUtils";
 
 export const createHostVote = (
   userId: string,

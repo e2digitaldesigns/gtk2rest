@@ -1,5 +1,5 @@
 import { CannedMessageModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const deleteMessage = async (userId: string, messageId: string) => {
   try {

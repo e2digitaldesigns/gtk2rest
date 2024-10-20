@@ -1,7 +1,6 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { sortEpisodeTopicWithContent } from "../../../_podcastUtils";
+import { mongoObjectId, sortEpisodeTopicWithContent } from "../../../../../utils";
 
 export const copyEpisodeTopics = async (episodeId: string, topicId: string, userId: string) => {
   try {

@@ -1,6 +1,6 @@
 import { ChatLogModel } from "../../../models";
 import { sendChatRankData } from "./sendChatRankData";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 
 export const resetChatRanks = async (userId: string) => {
   try {

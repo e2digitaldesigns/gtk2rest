@@ -1,6 +1,6 @@
 import { ChatLogModel } from "../../../models";
 import { sendChatData } from "./sendChatData";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 
 export const resetChatMessages = async (userId: string) => {
   try {

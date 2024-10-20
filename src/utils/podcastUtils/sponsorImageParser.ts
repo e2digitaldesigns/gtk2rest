@@ -1,4 +1,4 @@
-import { SponsorImages } from "../../../models";
+import { SponsorImages } from "../../models";
 
 export const sponsorImageParser = (sponsorImages: SponsorImages[]) => {
   const newSponsorImages: SponsorImages[] = [];

@@ -1,10 +1,10 @@
 import express, { NextFunction, Request } from "express";
 
-import { generateId } from "../../globalUtils";
 import * as chatRelayFunctions from "./functions";
 import * as clientState from "./clientState";
 import { CustomResponse } from "./types";
 import { verifyToken } from "../_middleware";
+import { generateId } from "../../utils";
 
 const router = express.Router();
 

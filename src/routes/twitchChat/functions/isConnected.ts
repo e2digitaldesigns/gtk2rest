@@ -1,6 +1,6 @@
 import { isChannelInClient } from "../../../bots/twitch";
 import { TwitchAuthModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 
 export const isConnected = async (userId: string) => {
   try {

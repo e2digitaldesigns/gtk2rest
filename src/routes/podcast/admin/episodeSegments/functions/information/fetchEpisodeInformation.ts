@@ -1,6 +1,6 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../../../../models";
-import { mongoObjectId } from "../../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../../utils/routeUtils";
 
 export const fetchEpisodeInformation = async (episodeId: string, userId: string) => {
   const result = await EpisodeModel.aggregate([

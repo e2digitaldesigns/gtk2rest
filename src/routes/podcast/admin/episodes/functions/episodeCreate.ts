@@ -1,7 +1,5 @@
 import { EpisodeModel, SponsorImages } from "../../../../../models";
-import { s3Functions } from "../../../../../utils";
-import { lastEpisodeTopicParser } from "../../../_podcastUtils";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { lastEpisodeTopicParser, mongoObjectId, s3Functions } from "../../../../../utils";
 
 export const episodeCreate = async (
   currentState: Record<string, boolean>,

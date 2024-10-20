@@ -1,5 +1,5 @@
 import { SocialNetworkModel } from "../../../../../models/socialNetworks.model";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const createSocial = async (userId: string, site: string, username: string) => {
   try {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { EpisodeModel, TwitchAuthModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 import { refreshTwitchStreamerToken } from "../../../bots/twitch/functions";
 
 export const streamTitleUpdate = async (userId: string, episodeId: string, topicId: string) => {

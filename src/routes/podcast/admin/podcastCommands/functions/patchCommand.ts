@@ -1,5 +1,5 @@
 import { UserCommandsModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const patchCommands = async (userId: string, _id: string, status: boolean) => {
   const action = status ? "$addToSet" : "$pull";

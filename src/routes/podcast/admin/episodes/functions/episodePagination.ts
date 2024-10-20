@@ -1,5 +1,5 @@
 import { EpisodeModel, IEpisode, ITemplate } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 interface IEpisodeResult extends IEpisode {
   template: ITemplate[];

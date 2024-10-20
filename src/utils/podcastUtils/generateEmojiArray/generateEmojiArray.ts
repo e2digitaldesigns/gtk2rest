@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { randomEmoji } from "./randomEmoji";
-import { generateRandomCount } from "../../../../utils";
+import { generateRandomCount } from "../../generateRandomCount";
 
 const emojiCountObj: { [key: string]: number } = {
   add: generateRandomCount(3, 5),

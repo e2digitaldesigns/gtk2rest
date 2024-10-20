@@ -1,6 +1,5 @@
 import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { sortEpisodeTopicWithContent } from "../../../_podcastUtils";
+import { mongoObjectId, sortEpisodeTopicWithContent } from "../../../../../utils";
 
 export const getShowRunner = async (episodeId: string) => {
   try {

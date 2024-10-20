@@ -1,7 +1,9 @@
 import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { sortEpisodeTopicWithContent } from "../../../_podcastUtils";
-import { showTimeHostParser } from "./../../../_podcastUtils/showTimeHostParser";
+import {
+  mongoObjectId,
+  showTimeHostParser,
+  sortEpisodeTopicWithContent
+} from "../../../../../utils";
 
 export const getControlCenter = async (userId: string, templateId: string) => {
   try {

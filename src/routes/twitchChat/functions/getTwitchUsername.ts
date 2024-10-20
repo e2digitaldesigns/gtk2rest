@@ -1,5 +1,5 @@
 import { TwitchAuthModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 
 export const getTwitchUsername = async (userId: string) => {
   try {

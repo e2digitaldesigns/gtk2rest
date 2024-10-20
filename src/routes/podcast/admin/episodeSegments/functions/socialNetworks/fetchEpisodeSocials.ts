@@ -1,5 +1,5 @@
 import { EpisodeModel, SocialNetworkModel } from "../../../../../../models";
-import { mongoObjectId } from "../../../../../_routeUtils/mongoObjectId";
+import { mongoObjectId } from "../../../../../../utils/routeUtils/mongoObjectId";
 import _sortBy from "lodash/sortBy";
 
 export const fetchEpisodeSocials = async (episodeId: string, userId: string) => {

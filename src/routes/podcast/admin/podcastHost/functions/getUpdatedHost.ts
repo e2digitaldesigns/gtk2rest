@@ -1,5 +1,5 @@
 import { HostModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils/mongoObjectId";
+import { mongoObjectId } from "../../../../../utils/routeUtils/mongoObjectId";
 
 export const getUpdatedHost = async (userId: string) => {
   const result = await HostModel.find({ userId: mongoObjectId(userId) }).select({

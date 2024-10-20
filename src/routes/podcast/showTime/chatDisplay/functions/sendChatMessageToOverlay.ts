@@ -1,6 +1,6 @@
 import { ChatLogModel } from "../../../../../models";
 import { getSocketServer } from "../../../../../startUpServices/socket";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const sendChatMessageToOverlay = async (
   userId: string,

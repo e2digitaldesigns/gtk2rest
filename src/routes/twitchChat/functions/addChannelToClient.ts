@@ -1,7 +1,7 @@
 import axios from "axios";
 import { addChannel, isChannelInClient } from "../../../bots/twitch";
 import { TwitchAuthModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 
 type TwitchData = {
   access_token: string;

@@ -1,8 +1,6 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel } from "../../../../../models";
-import { s3Functions } from "../../../../../utils";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { getUpdatedTopics } from "../../../_podcastUtils";
+import { s3Functions, getUpdatedTopics, mongoObjectId } from "../../../../../utils";
 
 export const deleteEpisodeTopic = async (episodeId: string, topicId: string, userId: string) => {
   try {

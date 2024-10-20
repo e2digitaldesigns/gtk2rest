@@ -1,7 +1,7 @@
 import { Client } from "../types";
 import * as clientState from "../clientState";
 import { ChatVotingModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 
 export async function sendChatVotingData(userId: string, clientId?: string) {
   try {

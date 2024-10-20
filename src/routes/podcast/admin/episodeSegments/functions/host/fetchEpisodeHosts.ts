@@ -1,6 +1,6 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, HostModel, TemplateModel } from "../../../../../../models";
-import { mongoObjectId } from "../../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../../utils/routeUtils";
 
 export const fetchEpisodeHost = async (episodeId: string, userId: string) => {
   try {

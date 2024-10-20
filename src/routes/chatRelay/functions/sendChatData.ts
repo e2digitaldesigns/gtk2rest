@@ -1,7 +1,7 @@
 import { Client } from "../types";
 import * as clientState from "../clientState";
 import { ChatLogModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 
 export async function sendChatData(userId: string, clientId?: string) {
   try {

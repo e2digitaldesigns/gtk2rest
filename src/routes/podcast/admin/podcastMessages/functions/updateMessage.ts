@@ -1,5 +1,5 @@
 import { CannedMessageModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const updateMessage = async (
   userId: string,

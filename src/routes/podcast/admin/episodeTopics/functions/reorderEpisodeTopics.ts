@@ -1,7 +1,5 @@
-import { IEpisodeTopic } from "../../../../../models";
-import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { getUpdatedTopics } from "../../../_podcastUtils";
+import { IEpisodeTopic, EpisodeModel } from "../../../../../models";
+import { mongoObjectId, getUpdatedTopics } from "../../../../../utils";
 
 export const reorderEpisodeTopics = async (
   episodeId: string,

@@ -1,4 +1,4 @@
-import { IEpisodeHost, IHost, IHostSocials } from "../../../models";
+import { IEpisodeHost, IHost, IHostSocials } from "../../models";
 import _map from "lodash/map";
 
 interface ITickerWithTitles {

@@ -1,6 +1,6 @@
 import { sendTwitchChatMessage } from "../../../bots/twitch";
 import { ChatLogModel, ChatVotingModel } from "../../../models";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
 import { logChatVoteReply } from "./logChatVoteReply";
 import { sendChatVotingData } from "./sendChatVotingData";
 

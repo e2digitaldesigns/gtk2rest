@@ -1,5 +1,5 @@
 import { HostModel, IHost } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils/mongoObjectId";
+import { mongoObjectId } from "../../../../../utils/routeUtils/mongoObjectId";
 import { getUpdatedHost } from "./getUpdatedHost";
 
 export const updateHost = async (userId: string, hostId: string, host: IHost) => {

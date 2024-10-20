@@ -1,6 +1,5 @@
 import { EpisodeModel } from "../../../../../../models";
-import { mongoObjectId } from "../../../../../_routeUtils";
-import { episodeImageParser } from "../../../../_podcastUtils";
+import { episodeImageParser, mongoObjectId } from "../../../../../../utils";
 
 export const fetchEpisodeImages = async (episodeId: string, userId: string) => {
   const result = await EpisodeModel.aggregate([

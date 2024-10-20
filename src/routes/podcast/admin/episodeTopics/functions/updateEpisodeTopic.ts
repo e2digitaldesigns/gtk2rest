@@ -1,7 +1,6 @@
 import _sortBy from "lodash/sortBy";
 import { EpisodeModel, IEpisodeTopic } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import { getUpdatedTopics } from "../../../_podcastUtils";
+import { mongoObjectId, getUpdatedTopics } from "../../../../../utils";
 
 export const updateEpisodeTopics = async (
   {

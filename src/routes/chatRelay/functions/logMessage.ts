@@ -1,8 +1,8 @@
 import { ChatLogModel } from "../../../models";
-import { generateId } from "../../../globalUtils";
 import { sendChatData } from "./sendChatData";
 import { sendChatRankData } from "../../chatRank/functions";
-import { mongoObjectId } from "../../_routeUtils";
+import { mongoObjectId } from "../../../utils/routeUtils";
+import { generateId } from "../../../utils";
 
 type TwitchMessage = {
   channel: string;

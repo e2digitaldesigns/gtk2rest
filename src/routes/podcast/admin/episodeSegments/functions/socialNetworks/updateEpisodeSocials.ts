@@ -1,6 +1,6 @@
 import { EpisodeModel } from "../../../../../../models";
 import { ISocialNetworks } from "../../../../../../models/socialNetworks.model";
-import { mongoObjectId } from "../../../../../_routeUtils/mongoObjectId";
+import { mongoObjectId } from "../../../../../../utils/routeUtils/mongoObjectId";
 
 export const updateEpisodeSocials = async (
   episodeId: string,

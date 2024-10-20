@@ -1,6 +1,11 @@
 import { EpisodeModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
-import * as podcastUtils from "../../../_podcastUtils";
+import {
+  episodeImageParser,
+  mongoObjectId,
+  showTimeHostParser,
+  showTimeImageParser,
+  sortEpisodeTopicWithContent
+} from "../../../../../utils";
 
 export const getEpisode = async (userId: string, type: "episode" | "template", dataId: string) => {
   const match =
@@ -43,11 +48,11 @@ export const getEpisode = async (userId: string, type: "episode" | "template", d
 
     const result = {
       ...epData,
-      logo: podcastUtils.episodeImageParser(epData.logo),
-      hosts: podcastUtils.showTimeHostParser(epData.availableHosts, epData.hosts),
-      sponsorImages: podcastUtils.showTimeImageParser(epData.sponsorImages),
+      logo: episodeImageParser(epData.logo),
+      hosts: showTimeHostParser(epData.availableHosts, epData.hosts),
+      sponsorImages: showTimeImageParser(epData.sponsorImages),
       socialNetworks: [],
-      topics: epData?.topics ? podcastUtils.sortEpisodeTopicWithContent(epData.topics) : []
+      topics: epData?.topics ? sortEpisodeTopicWithContent(epData.topics) : []
     };
 
     delete result.availableHosts;

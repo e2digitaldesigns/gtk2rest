@@ -1,4 +1,4 @@
-import { SponsorImages } from "../../../models";
+import { SponsorImages } from "../../models";
 
 export const episodeImageParser = (images: string | SponsorImages[]): string | SponsorImages[] => {
   const baseUrl = process.env.S3_CLOUD_IMAGES as string;

@@ -1,5 +1,5 @@
 import { EpisodeModel, IEpisodeTicker } from "../../../../../../models";
-import { mongoObjectId } from "../../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../../utils/routeUtils";
 
 export const createEpisodeNews = async (
   episodeId: string,

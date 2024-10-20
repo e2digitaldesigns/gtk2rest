@@ -1,6 +1,6 @@
 import { PipelineStage } from "mongoose";
 import { SocialNetworkModel } from "../../../../../models/socialNetworks.model";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const socialSearch = async (
   page: string,

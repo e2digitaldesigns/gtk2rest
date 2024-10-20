@@ -1,5 +1,5 @@
 import { UserCommandsModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../../routes/_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const validatedCommand = async (gtkUserId: string, command: string): Promise<boolean> => {
   const exceptions = ["!gtk", "!reply", "!cb"];

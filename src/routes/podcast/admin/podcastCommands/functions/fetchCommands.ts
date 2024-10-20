@@ -1,5 +1,5 @@
 import { UserCommandsModel } from "../../../../../models";
-import { mongoObjectId } from "../../../../_routeUtils";
+import { mongoObjectId } from "../../../../../utils/routeUtils";
 
 export const fetchCommands = async (userId: string, type: string) => {
   try {

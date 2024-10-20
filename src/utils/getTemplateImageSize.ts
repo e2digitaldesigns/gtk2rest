@@ -1,5 +1,5 @@
 import { EpisodeModel } from "../models";
-import { mongoObjectId } from "../routes/_routeUtils";
+import { mongoObjectId } from "./routeUtils";
 
 export async function getTemplateImageSize(episodeId: string, userId: string, imageType: string) {
   const template = await EpisodeModel.aggregate([
