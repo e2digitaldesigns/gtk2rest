@@ -1,8 +1,7 @@
 import { MessageEvent } from "@twurple/easy-bot";
 import { validatedCommand } from "./isCommandValid";
 import { logChatVote } from "../../../../../routes/chatVoting/functions";
-import { createHostVote } from "../../../../../utils";
-import { over } from "lodash";
+import { createHostVote } from "utils";
 
 export const chatCommandParser = async (
   channel: string,
@@ -11,14 +10,10 @@ export const chatCommandParser = async (
   isStreamer: boolean,
   messageEvent: MessageEvent
 ) => {
-  console.log({ channel, gtkUserId, isFollowing, isStreamer, messageText: messageEvent.text });
-
   const trimmedMessage = messageEvent.text.toLowerCase().trim();
   const [typedCommand, target] = trimmedMessage.split(" ");
 
   const validCommand = await validatedCommand(gtkUserId, typedCommand);
-
-  console.log({ validCommand });
 
   if (!validCommand) {
     return;
@@ -29,6 +24,7 @@ export const chatCommandParser = async (
     "!v2": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
     "!v3": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
     "!v4": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+
     "!sv1": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
     "!sv2": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
     "!sv3": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
