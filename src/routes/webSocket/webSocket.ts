@@ -2,8 +2,7 @@ import express, { Request, Response } from "express";
 import { getSocketServer } from "../../startUpServices/socket";
 import * as socketFunctions from "./functions";
 import { verifyToken } from "../_middleware";
-import { generateId } from "../../globalUtils";
-import { generateEmojiArray } from "../podcast/_podcastUtils";
+import { createHostVote } from "../../utils";
 const router = express.Router();
 
 router.get("/", (_, res: Response) => {
@@ -46,25 +45,22 @@ router.post("/overlay-controls", verifyToken, function (req: Request, res: Respo
   socketIO.emit(socket, nodeSendArray);
 });
 
-router.post("/overlay-controls/host-vote", verifyToken, function (req: Request, res: Response) {
-  const { action, socket, templateId } = req.body;
-  const socketIO = getSocketServer();
+router.post(
+  "/overlay-controls/host-vote",
+  verifyToken,
+  async function (req: Request, res: Response) {
+    const { action, socket, templateId } = req.body;
 
-  const votingAction = socketFunctions.parseVotingAction(action);
-  if (!votingAction) throw new Error("Invalid action");
+    console.log({ action, socket, templateId });
 
-  const nodeSendArray = {
-    _id: generateId(),
-    action: votingAction,
-    createdAt: new Date(),
-    emojis: generateEmojiArray(votingAction),
-    host: action.charAt(action.length - 1),
-    tid: templateId,
-    uid: res.locals.userId
-  };
+    const vote = await createHostVote(res.locals.userId, action, socket, templateId);
+    if (!vote) {
+      res.status(400).json({ error: "Invalid action" });
+      return;
+    }
 
-  socketIO.emit(socket, nodeSendArray);
-  res.json({ action, nodeSendArray });
-});
+    res.json({ success: vote });
+  }
+);
 
 export const socket = router;

@@ -1,6 +1,8 @@
 import { MessageEvent } from "@twurple/easy-bot";
 import { validatedCommand } from "./isCommandValid";
 import { logChatVote } from "../../../../../routes/chatVoting/functions";
+import { createHostVote } from "../../../../../utils";
+import { over } from "lodash";
 
 export const chatCommandParser = async (
   channel: string,
@@ -23,25 +25,24 @@ export const chatCommandParser = async (
   }
 
   const commandActions: { [key: string]: Function } = {
-    "!v1": () => overlayVoting(messageEvent, "!v1", messageEvent.userName, channel),
-    "!v2": () => console.log("v2"),
-    "!v3": () => console.log("v3"),
-    "!v4": () => console.log("v4"),
+    "!v1": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!v2": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!v3": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!v4": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!sv1": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!sv2": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!sv3": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!sv4": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
 
-    "!sv1": () => console.log("sv1"),
-    "!sv2": () => console.log("sv2"),
-    "!sv3": () => console.log("sv3"),
-    "!sv4": () => console.log("sv4"),
+    "!win1": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!win2": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!win3": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!win4": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
 
-    "!win1": () => console.log("win1"),
-    "!win2": () => console.log("win2"),
-    "!win3": () => console.log("win3"),
-    "!win4": () => console.log("win4"),
-
-    "!d1": () => console.log("d1"),
-    "!d2": () => console.log("d2"),
-    "!d3": () => console.log("d3"),
-    "!d4": () => console.log("d4"),
+    "!d1": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!d2": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!d3": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
+    "!d4": () => overlayVoting(messageEvent, typedCommand, messageEvent.userName, gtkUserId),
 
     "!dv": () => {
       logChatVote(gtkUserId, "dislike", messageEvent.userName, target, "username");
@@ -63,7 +64,10 @@ export async function overlayVoting(
   messageEvent: MessageEvent,
   command: string,
   username: string,
-  channel: string
+  userId: string
 ) {
+  // change me
+  const vote = createHostVote(userId, command, "gtkVoting", "65a90a1a02aae02cdba1910d");
+  console.log({ vote });
   messageEvent.reply(`@${username} voted for ${command}`);
 }

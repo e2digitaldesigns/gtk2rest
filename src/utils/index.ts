@@ -4,3 +4,4 @@ export * from "./getTemplateImageSize";
 export * from "./imageSizeParser";
 export * from "./s3";
 export * from "./generateRandomCount";
+export * from "./createHostVote";
