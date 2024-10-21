@@ -11,3 +11,4 @@ export * from "./templates.model";
 export * from "./twitchAuth.model";
 export * from "./users.model";
 export * from "./chatVoting.model";
+export * from "./userTemplate.model";

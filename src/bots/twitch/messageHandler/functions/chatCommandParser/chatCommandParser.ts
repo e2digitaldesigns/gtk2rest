@@ -62,8 +62,6 @@ export async function overlayVoting(
   username: string,
   userId: string
 ) {
-  // change me
-  const vote = createHostVote(userId, command, "gtkVoting", "65a90a1a02aae02cdba1910d");
-  console.log({ vote });
+  const vote = await createHostVote(userId, command, "gtkVoting");
   messageEvent.reply(`@${username} voted for ${command}`);
 }

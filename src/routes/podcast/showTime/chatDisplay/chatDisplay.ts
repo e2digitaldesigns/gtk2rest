@@ -8,7 +8,6 @@ router.post("/send-to-overlay/", verifyToken, async (req: Request, res: Response
   const data = await chatDisplayFunctions.sendChatMessageToOverlay(
     res.locals.userId,
     req.body.messageId,
-    req.body.templateId,
     req.body.showTime,
     req.body.transition
   );
@@ -17,10 +16,7 @@ router.post("/send-to-overlay/", verifyToken, async (req: Request, res: Response
 });
 
 router.post("/clear-chat-message/", verifyToken, async (req: Request, res: Response) => {
-  const data = await chatDisplayFunctions.clearMessageFromOverlay(
-    res.locals.userId,
-    req.body.templateId
-  );
+  const data = await chatDisplayFunctions.clearMessageFromOverlay(res.locals.userId);
 
   res.status(data.resultStatus.responseCode).send(data);
 });

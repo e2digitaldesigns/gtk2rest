@@ -4,9 +4,9 @@ import { verifyToken } from "../../_middleware";
 
 const router = express.Router();
 
-router.get("/", verifyToken, async (_, res: Response) => {
-  const data = await templateFunctions.getTemplates();
+router.patch("/", verifyToken, async (req: Request, res: Response) => {
+  const data = await templateFunctions.changeUserTemplate(res.locals.userId, req.body.templateId);
   res.status(data.resultStatus.responseCode).send(data);
 });
 
-export const templates = router;
+export const userTemplates = router;

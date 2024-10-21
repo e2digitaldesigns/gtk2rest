@@ -19,3 +19,4 @@ export * from "./podcast/templates/templates";
 export * from "./chatVoting/chatVoting";
 
 export * from "./podcast/showTime/chatDisplay/chatDisplay";
+export * from "./podcast/userTemplates/userTemplates";

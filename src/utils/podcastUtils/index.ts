@@ -10,3 +10,5 @@ export * from "./logoImageParser";
 export * from "./showTimeHostParser";
 export * from "./showTimeImageParser";
 export * from "./generateEmojiArray/generateEmojiArray";
+
+export * from "./getTemplateFromUserId";

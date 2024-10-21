@@ -1,11 +1,10 @@
 import { ChatLogModel } from "../../../../../models";
 import { getSocketServer } from "../../../../../startUpServices/socket";
-import { mongoObjectId } from "../../../../../utils/routeUtils";
+import { getTemplateFromUserId, mongoObjectId } from "utils";
 
 export const sendChatMessageToOverlay = async (
   userId: string,
   messageId: string,
-  templateId: string,
   showTime: number,
   transition: string
 ) => {
@@ -19,7 +18,7 @@ export const sendChatMessageToOverlay = async (
     const socketIO = getSocketServer();
 
     const nodeSendArray = {
-      tid: templateId,
+      tid: await getTemplateFromUserId(userId),
       uid: userId,
       action: "showChatMessage",
       message: {

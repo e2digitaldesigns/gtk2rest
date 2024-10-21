@@ -2,13 +2,9 @@ import { parseVotingAction } from "../routes/webSocket/functions";
 import { getSocketServer } from "../startUpServices/socket";
 import { generateId } from "./generateId";
 import { generateEmojiArray } from "./podcastUtils";
+import { getTemplateFromUserId } from "utils";
 
-export const createHostVote = (
-  userId: string,
-  action: string,
-  socket: string,
-  templateId: string
-) => {
+export const createHostVote = async (userId: string, action: string, socket: string) => {
   const socketIO = getSocketServer();
   const votingAction = parseVotingAction(action);
   if (!votingAction) {
@@ -21,7 +17,7 @@ export const createHostVote = (
     createdAt: new Date(),
     emojis: generateEmojiArray(votingAction),
     host: action.charAt(action.length - 1),
-    tid: templateId,
+    tid: await getTemplateFromUserId(userId),
     uid: userId
   };
 

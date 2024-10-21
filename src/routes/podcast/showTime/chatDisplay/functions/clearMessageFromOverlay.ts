@@ -1,11 +1,12 @@
+import { getTemplateFromUserId } from "utils";
 import { getSocketServer } from "../../../../../startUpServices/socket";
 
-export const clearMessageFromOverlay = async (userId: string, templateId: string) => {
+export const clearMessageFromOverlay = async (userId: string) => {
   try {
     const socketIO = getSocketServer();
 
     const nodeSendArray = {
-      tid: templateId,
+      tid: await getTemplateFromUserId(userId),
       uid: userId,
       action: "hideChatMessage"
     };
