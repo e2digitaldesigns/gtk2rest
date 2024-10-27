@@ -12,3 +12,4 @@ export * from "./showTimeImageParser";
 export * from "./generateEmojiArray/generateEmojiArray";
 
 export * from "./getTemplateFromUserId";
+export * from "./socialNetworkParser";

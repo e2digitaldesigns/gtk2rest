@@ -4,6 +4,7 @@ import {
   mongoObjectId,
   showTimeHostParser,
   showTimeImageParser,
+  socialNetworkParser,
   sortEpisodeTopicWithContent
 } from "../../../../../utils";
 
@@ -51,7 +52,7 @@ export const getEpisode = async (userId: string, type: "episode" | "template", d
       logo: episodeImageParser(epData.logo),
       hosts: showTimeHostParser(epData.availableHosts, epData.hosts),
       sponsorImages: showTimeImageParser(epData.sponsorImages),
-      socialNetworks: [],
+      socialNetworks: socialNetworkParser(epData.databaseSocials, epData.socialNetworks),
       topics: epData?.topics ? sortEpisodeTopicWithContent(epData.topics) : []
     };
 
