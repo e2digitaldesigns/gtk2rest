@@ -69,8 +69,8 @@ export interface IEpisode {
 }
 
 const TopicContentSchema = new Schema<TopicContent>({
-  type: { type: String, required: true },
-  file: { type: String, required: true }
+  type: { type: String, default: null },
+  file: { type: String, default: null }
 });
 
 const EpisodeHostSchema = new Schema<IEpisodeHost>({

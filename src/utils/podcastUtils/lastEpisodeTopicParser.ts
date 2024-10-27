@@ -7,7 +7,11 @@ export const lastEpisodeTopicParser = async (useCurrent: boolean, topics?: IEpis
       topics.map(async (item: IEpisodeTopic) => {
         const newItem = {
           ...item,
-          img: item?.img ? await s3Functions.copy(item.img) : ""
+          img: item?.img ? await s3Functions.copy(item.img) : "",
+          content: {
+            type: null,
+            file: null
+          }
         };
 
         return newItem;
@@ -28,7 +32,11 @@ export const lastEpisodeTopicParser = async (useCurrent: boolean, topics?: IEpis
       isChild: false,
       parentId: " ",
       img: "",
-      articles: ""
+      articles: "",
+      content: {
+        type: null,
+        file: null
+      }
     }
   ];
 };
