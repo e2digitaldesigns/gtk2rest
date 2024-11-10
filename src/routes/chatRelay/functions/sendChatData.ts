@@ -4,22 +4,27 @@ import { ChatLogModel } from "../../../models";
 import { mongoObjectId } from "../../../utils/routeUtils";
 
 export async function sendChatData(userId: string, clientId?: string) {
-  try {
-    const connectedClients = clientId
-      ? clientState.getClientByResId(clientId)
-      : clientState.getClientsByUserId(userId);
+	try {
+		const connectedClients = clientId
+			? clientState.getClientByResId(clientId)
+			: clientState.getClientsByUserId(userId);
 
-    const result = await ChatLogModel.find({
-      isDeleted: { $ne: true },
-      gtkUserId: mongoObjectId(userId)
-    })
-      .sort({ date: -1 })
-      .limit(20);
+		const result = await ChatLogModel.find({
+			isDeleted: { $ne: true },
+			gtkUserId: mongoObjectId(userId)
+		})
+			.sort({ date: -1 })
+			.limit(20);
 
-    connectedClients.forEach((client: Client) => {
-      if (client) {
-        client.res.write(`data: ${JSON.stringify(result)}\n\n`);
-      }
-    });
-  } catch (error) {}
+		const data = JSON.stringify(result);
+
+		connectedClients.forEach((client: Client) => {
+			if (client) {
+				console.log("Sending data to client:", data);
+				client.res.write(`data: ${data}\n\n`);
+			}
+		});
+	} catch (error) {
+		console.error("Error sending chat data:", error);
+	}
 }
