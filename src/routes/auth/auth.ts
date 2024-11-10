@@ -6,8 +6,6 @@ import * as authFunctions from "./functions";
 router.post("/firebase", async (req: Request, res: Response) => {
 	const { email, name, picture } = req.body;
 
-	console.log(9, { email, name, picture });
-
 	const data = await authFunctions.adminLogin(email, name, picture);
 	res.status(data.resultStatus.responseCode).send(data);
 });

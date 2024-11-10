@@ -5,8 +5,6 @@ export const adminLogin = async (email: string, name: string, picture: string) =
 	const secretKey = process.env.JWT_SECRET_TOKEN as string;
 	const options = { expiresIn: "24h" };
 
-	console.log(2, secretKey, options);
-
 	try {
 		const result = await UsersModel.findOneAndUpdate(
 			{ email },
@@ -26,8 +24,6 @@ export const adminLogin = async (email: string, name: string, picture: string) =
 			secretKey,
 			options
 		);
-
-		console.log(28, result);
 
 		return {
 			resultStatus: {
