@@ -1,19 +1,19 @@
 import { Client } from "./types";
 
-let clients: Client[] = [];
+let chatRelayClients: Client[] = [];
 
 export function addClient(client: Client) {
-  clients.push(client);
+	chatRelayClients.push(client);
 }
 
 export function removeClient(resId: string) {
-  clients = clients.filter(client => client.resId !== resId);
+	chatRelayClients = chatRelayClients.filter(client => client.resId !== resId);
 }
 
 export function getClientsByUserId(userId: string): Client[] {
-  return clients.filter(client => client.gtkUserId === userId);
+	return chatRelayClients.filter(client => client.gtkUserId === userId);
 }
 
 export function getClientByResId(resId: string): Client[] {
-  return clients.filter(client => client.resId === resId);
+	return chatRelayClients.filter(client => client.resId === resId);
 }
