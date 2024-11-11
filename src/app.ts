@@ -13,7 +13,7 @@ import startUpServices from "./startUpServices";
 		await startUpServices.initializeMongo();
 		await startUpServices.initializeSocket(server);
 
-		await twitchBot(false);
+		await twitchBot();
 	} catch (error) {
 		console.error("Error during startup:", error);
 	}
