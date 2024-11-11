@@ -5,6 +5,7 @@ import { messageHandler } from "./messageHandler";
 
 const clientId = process.env.TWITCH_CLIENT_ID as string;
 const clientSecret = process.env.TWITCH_CLIENT_SECRET as string;
+let num = 0;
 
 let twitchBotClient: Bot | undefined;
 let messageListener: any;
@@ -20,6 +21,8 @@ authProvider.onRefresh(async (userId, newTokenData) =>
 );
 
 export async function twitchBot(initialStart = true): Promise<Bot> {
+	num++;
+	console.log("num", num);
 	const tokenData = await botFunctions.refreshAccessToken();
 
 	if (!tokenData) {

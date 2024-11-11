@@ -20,7 +20,6 @@ export async function sendChatData(userId: string, clientId?: string) {
 
 		connectedClients.forEach((client: Client) => {
 			if (client) {
-				console.log("Sending data to client:", data);
 				client.res.write(`data: ${data}\n\n`);
 			}
 		});
