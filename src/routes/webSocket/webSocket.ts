@@ -31,29 +31,6 @@ router.post("/manual/:type", function (req: Request, res: Response) {
 	socketIO.emit(action, nodeSendArray);
 });
 
-router.get("/client/overlay-controls", async function (req: Request, res: Response) {
-	try {
-		const action = (req.query.action as string) || "";
-		const data = (req.query.data as object) || {};
-		const socket = (req.query.socket as string) || "";
-		const userId = (req.query.uid as string) || "";
-
-		const nodeSendArray = {
-			tid: await getTemplateFromUserId(userId),
-			uid: userId,
-			action,
-			data
-		};
-
-		res.json({ action, nodeSendArray });
-
-		const socketIO = getSocketServer();
-		socketIO.emit(socket, nodeSendArray);
-	} catch (error) {
-		res.status(500).json({ error: "Internal Server Error" });
-	}
-});
-
 router.post("/overlay-controls", verifyToken, async function (req: Request, res: Response) {
 	const { action, data, socket } = req.body;
 	const socketIO = getSocketServer();
@@ -86,5 +63,48 @@ router.post(
 		res.json({ success: vote });
 	}
 );
+
+// CLIENT SOCKETS CLIENT SOCKETS CLIENT SOCKETS
+// CLIENT SOCKETS CLIENT SOCKETS CLIENT SOCKETS
+// CLIENT SOCKETS CLIENT SOCKETS CLIENT SOCKETS
+
+router.get("/client/overlay-controls", async function (req: Request, res: Response) {
+	try {
+		const action = (req.query.action as string) || "";
+		const data = (req.query.data as object) || {};
+		const socket = (req.query.socket as string) || "";
+		const userId = (req.query.uid as string) || "";
+
+		const nodeSendArray = {
+			tid: await getTemplateFromUserId(userId),
+			uid: userId,
+			action,
+			data
+		};
+
+		res.json({ action, nodeSendArray });
+
+		const socketIO = getSocketServer();
+		socketIO.emit(socket, nodeSendArray);
+	} catch (error) {
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+});
+
+router.get("/client/overlay-controls/host-vote", async function (req: Request, res: Response) {
+	const action = (req.query.action as string) || "";
+	const data = (req.query.data as object) || {};
+	const socket = (req.query.socket as string) || "";
+	const userId = (req.query.uid as string) || "";
+
+	const vote = await createHostVote(userId, action, socket);
+
+	if (!vote) {
+		res.status(400).json({ error: "Invalid action" });
+		return;
+	}
+
+	res.json({ success: vote });
+});
 
 export const socket = router;
